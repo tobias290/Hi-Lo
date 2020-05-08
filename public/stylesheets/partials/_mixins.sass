@@ -1,0 +1,8 @@
+@mixin center($margin: auto)
+    left: 0
+    margin: $margin
+    right: 0
+
+@mixin mobile-query($breakpoint)
+    @media only screen and (max-width: $breakpoint)
+        @content

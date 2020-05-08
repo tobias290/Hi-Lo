@@ -5,7 +5,6 @@ let logger = require("morgan");
 let sassMiddleware = require("node-sass-middleware");
 
 let indexRouter = require("./routes/index");
-let usersRouter = require("./routes/users");
 
 let app = express();
 
@@ -22,6 +21,4 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
-
 module.exports = app;
