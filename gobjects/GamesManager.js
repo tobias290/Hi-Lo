@@ -22,13 +22,13 @@ module.exports = class GamesManager {
         let gameCode = "";
         let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        let validId = false;
+        let validGameCode = false;
 
-        while (!validId) {
+        while (!validGameCode) {
             for (let i = 0; i < 4; i++)
                 gameCode += characters.charAt(Math.floor(Math.random() * characters.length));
 
-            validId = !existingCodes.includes(gameCode);
+            validGameCode = !existingCodes.includes(gameCode);
         }
 
         this.games.push(new Game(gameCode));

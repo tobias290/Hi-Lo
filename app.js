@@ -10,7 +10,7 @@ let apiRouter = require("./routes/api");
 
 let app = express();
 
-app.use(cors());
+app.use(cors()); // NOTE: Consider changing from global accept
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
