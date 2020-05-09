@@ -15,9 +15,11 @@ module.exports = class GamesManager {
      *
      * Creates a new game.
      *
+     * @param {Player} players - Defaults starting players.
+     *
      * @returns {string} - Return the game code of the new game.
      */
-    createNewGame() {
+    createNewGame(...players) {
         let existingCodes = this.getGameCodes();
         let gameCode = "";
         let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -31,7 +33,7 @@ module.exports = class GamesManager {
             validGameCode = !existingCodes.includes(gameCode);
         }
 
-        this.games.push(new Game(gameCode));
+        this.games.push(new Game(gameCode, ...players));
 
         return gameCode;
     }
