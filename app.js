@@ -11,10 +11,13 @@ let expressWs = require("express-ws")(app);
 // Set a global instance of the game manager to be used in all routes
 app.set("gamesManager", new (require("./gobjects/GamesManager"))());
 app.set("wss", expressWs.getWss());
+app.set("event", new (require("events")).EventEmitter());
 
 let indexRouter = require("./routes/index");
 let apiRouter = require("./routes/game");
 let wsRouter = require("./routes/ws");
+
+expressWs.getWss()
 
 app.use(cors()); // NOTE: Consider changing from global accept
 app.use(logger("dev"));

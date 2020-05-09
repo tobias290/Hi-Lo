@@ -33,6 +33,7 @@ export default class App extends React.Component {
 
         ws.addEventListener("message", (e) => {
             // TODO: Do something with data
+            console.log("Incoming Message: ", e.data);
         });
     }
 

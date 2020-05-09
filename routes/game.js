@@ -1,6 +1,5 @@
 let express = require("express");
 let router = express.Router();
-
 let Player = require("../gobjects/Player");
 
 router.get("/host", (req, res) => {
@@ -15,6 +14,8 @@ router.get("/join", (req, res) => {
 
     if (game !== undefined) {
         req.app.get("gamesManager").findGame(req.query["code"]).addPlayer(new Player(req.query["player"]));
+
+        req.app.get("event").emit("ws", "joinedGame");
     }
 
     res.json({
