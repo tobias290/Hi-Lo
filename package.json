@@ -3,9 +3,9 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
+        "start": "concurrently  \"node ./bin/www\"\" \"node scripts/start.js\"",
         "start-server": "node ./bin/www",
         "start-frontend": "node scripts/start.js",
-        "start": "concurrently  \"npm node ./bin/www\" \"npm node scripts/start.js\"",
         "build-frontend": "node scripts/build.js",
         "test-frontend": "node scripts/test.js",
         "eject-frontend": "node scripts/eject.js"
@@ -23,6 +23,7 @@
         "camelcase": "^5.3.1",
         "case-sensitive-paths-webpack-plugin": "2.3.0",
         "cookie-parser": "~1.4.4",
+        "cors": "^2.8.5",
         "css-loader": "3.4.2",
         "debug": "~2.6.9",
         "dotenv": "8.2.0",
