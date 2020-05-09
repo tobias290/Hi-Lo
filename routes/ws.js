@@ -1,6 +1,5 @@
 let express = require("express");
 let router = express.Router();
-let expressWs = require("express-ws")(router);
 
 router.ws("/", (ws, req) => {
     ws.on("message", (message) => {

@@ -5,12 +5,15 @@ let logger = require("morgan");
 let sassMiddleware = require("node-sass-middleware");
 let cors = require("cors");
 
+let app = express();
+let expressWs = require("express-ws")(app);
+
+// Set a global instance of the game manager to be used in all routes
+app.set("gamesManager", new (require("./gobjects/GamesManager"))());
+
 let indexRouter = require("./routes/index");
 let apiRouter = require("./routes/api");
 let wsRouter = require("./routes/ws");
-
-let app = express();
-let expressWs = require("express-ws")(app);
 
 app.use(cors()); // NOTE: Consider changing from global accept
 app.use(logger("dev"));
@@ -29,4 +32,4 @@ app.use("/", indexRouter);
 app.use("/api", apiRouter);
 app.use("/ws", wsRouter);
 
-module.exports = app;
+app.listen(8000);

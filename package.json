@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "start": "concurrently  \"node ./bin/www\"\" \"node scripts/start.js\"",
-        "start-server": "node ./bin/www",
+        "start-server": "node app.js",
         "start-frontend": "node scripts/start.js",
         "build-frontend": "node scripts/build.js",
         "test-frontend": "node scripts/test.js",
