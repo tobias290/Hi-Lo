@@ -1,13 +1,10 @@
 let express = require("express");
 let router = express.Router();
 
-router.ws("/", (ws, req) => {
+router.ws("/:gameCode", (ws, req) => {
     ws.on("message", (message) => {
-        console.log("Server got message!");
-        ws.send(`Received Message: ${message}`);
-    })
-
-    console.log("Logging from '/' ws");
+        //req.app.get("wss").clients;
+    });
 });
 
 module.exports = router;

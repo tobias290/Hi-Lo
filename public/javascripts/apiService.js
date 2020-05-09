@@ -1,9 +1,9 @@
 export default class ApiService {
-    static BASE_URL = "http://localhost:8000/api";
+    static BASE_URL = "http://localhost:8000/game";
 
     static URLS = {
-        hostGame: ApiService.BASE_URL + "/host-game",
-        joinGame: ApiService.BASE_URL + "/join-game",
+        hostGame: ApiService.BASE_URL + "/host",
+        joinGame: ApiService.BASE_URL + "/join",
     };
 
     static get(url, queryParams = {}) {

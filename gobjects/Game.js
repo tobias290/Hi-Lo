@@ -40,4 +40,8 @@ module.exports = class Game {
     get gameCode() {
         return this.gameCode;
     }
+
+    get players() {
+        return this.players;
+    }
 }
