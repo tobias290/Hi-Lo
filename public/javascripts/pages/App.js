@@ -1,5 +1,6 @@
 import React from "react";
 import "../../stylesheets/style.css";
+import ApiService from "../apiService";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -7,8 +8,11 @@ export default class App extends React.Component {
 
         this.state = {
             gameCode: "",
+            playerName: "",
+            playerNameInput: "",
         }
 
+        this.canJoinGame = this.canJoinGame.bind(this);
         this.hostGame = this.hostGame.bind(this);
     }
 
@@ -28,15 +32,24 @@ export default class App extends React.Component {
     /**
      * @private
      *
+     * Checks whether the player's name is valid.
+     *
+     * @returns {boolean} - Returns true if the user is allowed to host/join a game.
+     */
+    canJoinGame() {
+        // Update to only support names create than 3 characters that are not spaces
+        return this.state.playerNameInput !== "";
+    }
+
+    /**
+     * @private
+     *
      * Sets up a game. Making the user the host.
      */
     hostGame() {
-        // TODO: Create app api manager
-
-        fetch("http://localhost:8000/api/host-game")
-            .then(resp => resp.json())
-            .then(resp => this.setState({gameCode: resp.game_code}))
-            .catch(err => console.error(err));
+        ApiService
+            .get(ApiService.URLS.hostGame, {player: this.state.playerNameInput})
+            .then(resp => this.setState({gameCode: resp.game_code, playerName: resp.player_name}));
     }
 
     render() {
@@ -47,16 +60,17 @@ export default class App extends React.Component {
                 {
                     this.state.gameCode === "" &&
                     <>
-                        <button onClick={this.hostGame}>Host Game</button>
-                        <button>Join Game</button>
+                        <input required onChange={(e) => this.setState({playerNameInput: e.target.value})} />
+                        <button onClick={this.hostGame} disabled={!this.canJoinGame()}>Host Game</button>
+                        <button disabled={!this.canJoinGame()}>Join Game</button>
                     </>
                 }
 
                 {
                     this.state.gameCode !== "" &&
                     <>
-                        <h2>Game Code</h2>
-                        <strong>{this.state.gameCode}</strong>
+                        <h2>Welcome {this.state.playerName}</h2>
+                        The Game code is <strong>{this.state.gameCode}</strong>
                     </>
                 }
             </>
