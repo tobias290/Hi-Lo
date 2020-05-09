@@ -37,6 +37,19 @@ module.exports = class GamesManager {
     }
 
     /**
+     * @public
+     *
+     * Finds a game via its unique game code
+     *
+     * @param {string} code - Game code.
+     *
+     * @return {Game} - Returns the instance of the game.
+     */
+    findGame(code) {
+        return this.games.find(game => game.gameCode === code);
+    }
+
+    /**
      * @private
      *
      * Lists over all current game and retrieve their game codes.

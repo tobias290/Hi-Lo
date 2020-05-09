@@ -7,4 +7,9 @@ router.get("/host-game", (req, res) => {
     });
 });
 
+
+router.get("/join-game", (req, res) => {
+
+});
+
 module.exports = router;
