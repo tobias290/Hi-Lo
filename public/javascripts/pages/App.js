@@ -21,7 +21,12 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <h1>Client!</h1>
+            <>
+                <h1>Hi-Lo!</h1>
+
+                <button>Host Game</button>
+                <button>Join Game</button>
+            </>
         );
     }
 }
