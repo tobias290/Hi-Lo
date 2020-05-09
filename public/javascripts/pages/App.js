@@ -13,16 +13,16 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        // let ws = new WebSocket("ws://localhost:8000");
-        //
-        // ws.addEventListener("open", (e) => {
-        //     ws.send("Sending from react");
-        // });
-        //
-        // ws.addEventListener("message", (e) => {
-        //     console.log("React got message");
-        //     console.log("Data: " + e.data);
-        // });
+        let ws = new WebSocket("ws://localhost:8000/ws");
+
+        ws.addEventListener("open", (e) => {
+            ws.send("Sending from react");
+        });
+
+        ws.addEventListener("message", (e) => {
+            console.log("React got message");
+            console.log("Data: " + e.data);
+        });
     }
 
     /**
