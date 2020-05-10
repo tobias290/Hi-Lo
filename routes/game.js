@@ -4,7 +4,7 @@ let Player = require("../gobjects/Player");
 
 router.get("/host", (req, res) => {
     res.json({
-        game_code: req.app.get("gamesManager").createNewGame(new Player(req.query["player"])),
+        game_code: req.app.get("gamesManager").createNewGame(new Player(req.query["player"], true)),
         player_name: req.query["player"],
     });
 });
@@ -13,7 +13,7 @@ router.get("/join", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.query["code"]);
 
     if (game !== undefined) {
-        req.app.get("gamesManager").findGame(req.query["code"]).addPlayer(new Player(req.query["player"], true));
+        req.app.get("gamesManager").findGame(req.query["code"]).addPlayer(new Player(req.query["player"]));
 
         req.app.get("event").emit("ws", "update:game");
     }

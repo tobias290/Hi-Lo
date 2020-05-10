@@ -49,6 +49,14 @@ class Player {
     dealCard(card) {
         this.board.addCard(card);
     }
+
+    get name() {
+        return this.name;
+    }
+
+    get isHost() {
+        return this.isHost;
+    }
 }
 
 module.exports = Player;
