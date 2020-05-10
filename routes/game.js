@@ -21,9 +21,14 @@ router.get("/join", (req, res) => {
     res.json({
         success: game !== undefined,
         player_name: req.query["player"],
-        other_players: game.players,
         game_code: req.query["code"],
     });
+});
+
+router.get("/:gameCode/state", (req, res) => {
+    let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
+
+    res.json(game !== undefined ? req.app.get("gamesManager").findGame(req.params["gameCode"]) : {error: "Game does not exist"});
 });
 
 module.exports = router;

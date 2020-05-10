@@ -1,6 +1,6 @@
-let Game = require("./Game");
+const Game = require("./Game");
 
-module.exports = class GamesManager {
+class GamesManager {
     /**
      * @private
      *
@@ -62,3 +62,5 @@ module.exports = class GamesManager {
         return this.games.map(game => game.gameCode);
     }
 }
+
+module.exports = GamesManager;

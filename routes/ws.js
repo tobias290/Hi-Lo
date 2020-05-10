@@ -2,7 +2,7 @@ let express = require("express");
 let router = express.Router();
 
 router.ws("/:gameCode", (ws, req) => {
-    req.app.get("event").on("ws", (event) => ws.emit(event));
+    req.app.get("event").on("ws", (event) => ws.emit(event)); // Converts any event emitted into a websocket event
 
     ws.on("joinedGame", () => {
         req.app.get("wss").clients.forEach(function each(client) {
