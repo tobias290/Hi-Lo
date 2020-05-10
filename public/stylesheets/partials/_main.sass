@@ -1,6 +1,26 @@
 *
     font-family: "Wellfleet", cursive
 
+*::-webkit-input-placeholder
+    color: $placeholder-color
+
+*:-moz-placeholder
+    color: $placeholder-color
+    opacity: 1
+
+*::-moz-placeholder
+    color: $placeholder-color
+    opacity: 1
+
+*:-ms-input-placeholder
+    color: $placeholder-color
+
+*::-ms-input-placeholder
+    color: $placeholder-color
+
+*::placeholder
+    color: $placeholder-color
+
 body
     background: radial-gradient(rgba(149, 255, 0, 0.8), rgba(16, 217, 217, 0.8))
 
@@ -11,7 +31,7 @@ body
     background: none
     color: white
     cursor: pointer
-    display: flex
+    display: inline-flex
     font-size: 1.5rem
     justify-content: center
     height: 50px
@@ -20,6 +40,9 @@ body
 
     &:hover:enabled
         transform: rotate(5deg)
+
+    &:focus
+        outline: none
 
     &:disabled
         border-color: rgba(white, .6)
@@ -30,3 +53,28 @@ body
         font-size: 2rem
         height: 75px
         width: 350px
+
+
+
+.form
+    .form__input
+        background: none
+        border: 2px solid white
+        box-sizing: border-box
+        color: white
+        height: 50px
+        min-width: 300px
+        padding-left: 1rem
+        text-align: center
+
+        &:focus
+            outline: none
+
+        &.form__input--x-large
+            font-size: 2rem
+            height: 75px
+            width: 450px
+
+
+.error
+    color: $error-color

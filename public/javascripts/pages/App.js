@@ -9,12 +9,18 @@ export default class App extends React.Component {
         this.state = {
             showHostJoinPage: true,
         }
+
+        this.joinGame = this.joinGame.bind(this);
+    }
+
+    joinGame(playerName, gameCode) {
+
     }
 
     render() {
         return (
             <>
-                {this.state.showHostJoinPage && <HostJoin />}
+                {this.state.showHostJoinPage && <HostJoin joinGame={this.joinGame} />}
             </>
         );
     }
