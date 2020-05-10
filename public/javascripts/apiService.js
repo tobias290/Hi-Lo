@@ -1,5 +1,5 @@
 export default class ApiService {
-    static BASE_URL = "http://localhost:8000/game";
+    static BASE_URL = "http://192.168.1.123:8000/game";
 
     static URLS = {
         hostGame: ApiService.BASE_URL + "/host",
