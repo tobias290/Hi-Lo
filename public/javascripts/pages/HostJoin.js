@@ -112,6 +112,7 @@ export default class HostJoin extends React.Component {
                             name="code"
                             type="text"
                             placeholder="Game Code"
+                            pattern="[A-Z][A-Z][A-Z][A-Z]"
                             required
                             minLength="4"
                             maxLength="4"

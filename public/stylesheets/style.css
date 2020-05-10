@@ -3,27 +3,27 @@
   font-family: "Wellfleet", cursive; }
 
 *::-webkit-input-placeholder {
-  color: #E1E1E1; }
+  color: #DDD; }
 
 *:-moz-placeholder {
-  color: #E1E1E1;
+  color: #DDD;
   opacity: 1; }
 
 *::-moz-placeholder {
-  color: #E1E1E1;
+  color: #DDD;
   opacity: 1; }
 
 *:-ms-input-placeholder {
-  color: #E1E1E1; }
+  color: #DDD; }
 
 *::-ms-input-placeholder {
-  color: #E1E1E1; }
+  color: #DDD; }
 
 *::placeholder {
-  color: #E1E1E1; }
+  color: #DDD; }
 
 body {
-  background: radial-gradient(rgba(149, 255, 0, 0.8), rgba(16, 217, 217, 0.8)); }
+  background: rgba(16, 217, 217, 0.8); }
 
 .button {
   align-items: center;
