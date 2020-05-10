@@ -13,6 +13,15 @@ class Player {
     /**
      * @private
      *
+     * True if the player is the host of the game, false if not.
+     *
+     * @type {boolean}
+     */
+    isHost = false;
+
+    /**
+     * @private
+     *
      * The player's board. This holds of their cards.
      *
      * @type {PlayerBoard}
@@ -23,9 +32,11 @@ class Player {
      * Player constructor
      *
      * @param {string} name - Name of the player.
+     * @param {boolean} isHost - True if this player is the host of a game
      */
-    constructor(name) {
+    constructor(name, isHost = false) {
         this.name = name;
+        this.isHost = isHost;
     }
 
     /**

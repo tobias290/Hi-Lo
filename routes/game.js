@@ -13,7 +13,7 @@ router.get("/join", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.query["code"]);
 
     if (game !== undefined) {
-        req.app.get("gamesManager").findGame(req.query["code"]).addPlayer(new Player(req.query["player"]));
+        req.app.get("gamesManager").findGame(req.query["code"]).addPlayer(new Player(req.query["player"], true));
 
         req.app.get("event").emit("ws", "update:game");
     }
