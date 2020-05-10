@@ -152,7 +152,7 @@ class Game {
             this.players[i % this.players.length].dealCard(this.stack.pop());
         }
 
-        this.currentPhase = GamePhase.PLAYER_TURN;
+        this.currentPhase = GamePhase.PLAYERS_PICKING_STARTING_CARDS;
     }
 
     get gameCode() {

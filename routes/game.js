@@ -25,6 +25,15 @@ router.get("/join", (req, res) => {
     });
 });
 
+router.get("/:gameCode/start", (req, res) => {
+    let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
+
+    if (game !== undefined)
+        game.start();
+
+    res.json(game !== undefined ? {started: true} : {error: "Game does not exist"});
+});
+
 router.get("/:gameCode/state", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
 
