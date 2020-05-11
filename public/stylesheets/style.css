@@ -119,6 +119,19 @@ body {
   .card .card--underline-value {
     text-decoration: underline; }
 
+.players-joining {
+  align-items: center;
+  height: calc(100% - 76px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; }
+  .players-joining .players {
+    align-items: center;
+    display: flex;
+    font-size: 2rem;
+    justify-content: space-around;
+    width: 100%; }
+
 .title {
   font-size: 5rem;
   padding-top: 1rem;
@@ -133,22 +146,24 @@ body {
   justify-content: space-evenly;
   width: 100%; }
 
-.game-title {
-  margin: 0.5rem; }
-
-.game-details {
+.game-top-bar {
   align-items: flex-start;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 100px;
-  position: fixed;
-  right: 1rem;
-  top: 0.5rem;
-  width: 175px; }
-  .game-details .game-details__detail {
+  justify-content: space-between;
+  padding: 0.5rem; }
+  .game-top-bar .game-title {
+    margin: 0;
+    width: fit-content; }
+  .game-top-bar .game-details {
+    align-items: center;
     display: flex;
-    justify-content: space-between;
-    width: 100%; }
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 175px; }
+    .game-top-bar .game-details .game-details__detail {
+      display: flex;
+      justify-content: space-between;
+      width: 100%; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,20 +1,23 @@
-.game-title
-    margin: .5rem
-
-.game-details
+.game-top-bar
     align-items: flex-start
     display: flex
-    flex-direction: column
-    //flex-direction: row
-    justify-content: space-around
-    height: 100px
-    position: fixed
-    right: 1rem
-    top: .5rem
-    //width: 600px
-    width: 175px
+    justify-content: space-between
+    padding: .5rem
 
-    .game-details__detail
+    .game-title
+        margin: 0
+        width: fit-content
+
+    .game-details
+        align-items: center
         display: flex
-        justify-content: space-between
-        width: 100%
+        flex-direction: column
+        justify-content: space-around
+        height: 100%
+
+        width: 175px
+
+        .game-details__detail
+            display: flex
+            justify-content: space-between
+            width: 100%

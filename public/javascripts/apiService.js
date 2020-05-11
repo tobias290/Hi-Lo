@@ -4,6 +4,7 @@ export default class ApiService {
     static URLS = {
         hostGame: ApiService.BASE_URL + "/host",
         joinGame: ApiService.BASE_URL + "/join",
+        startGame: (gameCode) => ApiService.BASE_URL + `/${gameCode}/start`,
         gameState: (gameCode) => ApiService.BASE_URL + `/${gameCode}/state`,
     };
 
