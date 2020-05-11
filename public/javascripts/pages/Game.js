@@ -72,6 +72,17 @@ export default class Game extends React.Component {
         return this.state.game.players.find(player => player.name === this.props.playerName);
     }
 
+    /**
+     * Gets the details for the left of clients player.
+     *
+     * @returns {*} - Returns the player.
+     */
+    getClientsLeftPlayer() {
+        let clientPlayerIndex = this.state.game.players.indexOf(this.getClientPlayer());
+
+        return this.state.game.players[this.state.game.players.length <= clientPlayerIndex - 1 ? clientPlayerIndex : 0];
+    }
+
     render() {
         return this.state.game === null ? <h1>Loading...</h1> : (
             <>
@@ -101,7 +112,17 @@ export default class Game extends React.Component {
                     (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS || this.state.game.currentPhase === GamePhase.PLAYER_TURN) &&
                     <div className="play-area">
                         <PlayerBoard cards={this.getClientPlayer().board.cards} />
-                        <CardStacks stack={this.state.game.stack.stack} discard={this.state.game.discard.stack} />
+                        <div className="play-area__right">
+                            <CardStacks stack={this.state.game.stack.stack} discard={this.state.game.discard.stack} />
+                            <div style={{transform: "scale(0.5)", height: "500px", width: "462px"}}>
+                                <h1 className="header-no-margin">Player to your left cards</h1>
+                                <br />
+                                <PlayerBoard cards={this.getClientsLeftPlayer().board.cards} />
+                            </div>
+                        </div>
+                        <div>
+                        {/* TODO: Add player scores here */}
+                        </div>
                     </div>
                 }
             </>

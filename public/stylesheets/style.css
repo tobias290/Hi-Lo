@@ -70,6 +70,9 @@ body {
 .error {
   color: #CB2A2A; }
 
+.header-no-margin {
+  margin: 0; }
+
 .card {
   background: #95ff00;
   border: 5px solid white;
@@ -187,5 +190,12 @@ body {
   display: flex;
   height: calc(100% - 76px);
   justify-content: space-around; }
+  .play-area .play-area__right {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 600px;
+    text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
