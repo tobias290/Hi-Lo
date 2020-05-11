@@ -2,10 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default class Game extends React.Component {
-    render() {
-        return this.props.value === null ? this.renderBackSide() : this.renderFaceSide();
-    }
-
+    /**
+     * @private
+     *
+     * Gets the correct color for the given card.
+     *
+     * @param {number} value - Value of the card.
+     * @returns {string} - Returns the hex code for the card.
+     */
     getCardColor(value) {
         if (value < 0) {
             return "#00008b";
@@ -20,8 +24,19 @@ export default class Game extends React.Component {
         }
     }
 
+    /**
+     * @private
+     *
+     * Underlines the six and nine card to make them clearer.
+     *
+     * @returns {boolean} - Returns true if the card should be underlines.
+     */
     underlineCard() {
         return this.props.value === 6 || this.props.value === 9;
+    }
+
+    render() {
+        return this.props.value === null ? this.renderBackSide() : this.renderFaceSide();
     }
 
     renderBackSide() {
