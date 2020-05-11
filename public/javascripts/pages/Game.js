@@ -90,6 +90,7 @@ export default class Game extends React.Component {
                     <h1 className="game-top-bar__title">Hi-Lo</h1>
                     <div className="game-top-bar__message">
                         {this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && "Pick two starting cards"}
+                        {this.state.game.currentPhase === GamePhase.PLAYERS_JOINING && <span>GAME CODE: <strong>{this.props.gameCode}</strong></span>}
                     </div>
                     <div className="game-top-bar__details">
                        <span className="game-top-bar__detail"><strong>Player Name:</strong> <span>{this.props.playerName}</span></span>
