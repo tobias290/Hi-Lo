@@ -78,7 +78,7 @@ export default class Game extends React.Component {
                 <div className="game-top-bar">
                     <h1 className="game-top-bar__title">Hi-Lo</h1>
                     <div className="game-top-bar__message">
-                        {this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && "Pick starting two cards"}
+                        {this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && "Pick two starting cards"}
                     </div>
                     <div className="game-top-bar__details">
                        <span className="game-top-bar__detail"><strong>Player Name:</strong> <span>{this.props.playerName}</span></span>

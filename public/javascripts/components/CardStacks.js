@@ -12,8 +12,8 @@ export default class CardStacks extends React.Component {
     render() {
         return (
             <div className="card-stacks">
-                <Card value={this.props.stack[0].value} />
-                <Card value={this.props.discard[0].value} />
+                <span title="Draw Deck"><Card value={this.props.stack[0].value} /></span>
+                <span title="Discard Deck"><Card value={this.props.discard[0].value} /></span>
             </div>
         );
     }
