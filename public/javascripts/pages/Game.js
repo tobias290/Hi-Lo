@@ -120,8 +120,14 @@ export default class Game extends React.Component {
                                 <PlayerBoard board={this.getClientsLeftPlayer().board} displayScore={false} />
                             </div>
                         </div>
-                        <div>
-                        {/* TODO: Add player scores here */}
+                        <div className="play-area__players-score">
+                            {this.state.game.players.filter(player => player.name !== this.props.playerName).map(player =>
+                                <div className="player-details">
+                                    <span className="player-details__name">{player.name}</span>
+                                    <span>Visible Score: {player.board.visibleScore}</span>
+                                    <span>Number of Face Up Cards: {player.board.noOfFaceUpCards}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 }
