@@ -30,9 +30,11 @@ class Card {
      * @public
      *
      * Flip the card to the other side.
+     *
+     * @param {boolean} direction - Direction to flip card.
      */
-    flip() {
-        this.faceUp = !this.faceUp;
+    flip(direction=!this.faceUp) {
+        this.faceUp = direction;
     }
 
     get value() {

@@ -151,6 +151,7 @@ class Game {
         for (let i = 0; i < this.players.length * 12; i++) {
             this.players[i % this.players.length].dealCard(this.stack.pop());
         }
+        this.discard.push(this.stack.pop(), true);
 
         this.currentPhase = GamePhase.PLAYERS_PICKING_STARTING_CARDS;
     }
@@ -165,6 +166,14 @@ class Game {
 
     get players() {
         return this.players;
+    }
+
+    get stack() {
+        return this.stack;
+    }
+
+    get discard() {
+        return this.discard;
     }
 }
 

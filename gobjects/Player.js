@@ -57,6 +57,10 @@ class Player {
     get isHost() {
         return this.isHost;
     }
+
+    get board() {
+        return this.board;
+    }
 }
 
 module.exports = Player;

@@ -4,11 +4,15 @@
     justify-content: space-between
     padding: .5rem
 
-    .game-title
+    .game-top-bar__title
         margin: 0
         width: fit-content
 
-    .game-details
+    .game-top-bar__message
+        align-self: center
+        font-size: 2rem
+
+    .game-top-bar__details
         align-items: center
         display: flex
         flex-direction: column
@@ -17,7 +21,13 @@
 
         width: 175px
 
-        .game-details__detail
+        .game-top-bar__detail
             display: flex
             justify-content: space-between
             width: 100%
+
+.play-area
+    align-items: center
+    display: flex
+    height: calc(100% - 76px)
+    justify-content: space-around

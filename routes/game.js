@@ -12,6 +12,8 @@ router.get("/host", (req, res) => {
 router.get("/join", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.query["code"]);
 
+    // TODO: Functionality to max player limit
+
     if (game !== undefined) {
         req.app.get("gamesManager").findGame(req.query["code"]).addPlayer(new Player(req.query["player"]));
 
@@ -28,8 +30,10 @@ router.get("/join", (req, res) => {
 router.get("/:gameCode/start", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
 
-    if (game !== undefined)
+    if (game !== undefined) {
         game.start();
+        req.app.get("event").emit("ws", "update:game");
+    }
 
     res.json(game !== undefined ? {started: true} : {error: "Game does not exist"});
 });

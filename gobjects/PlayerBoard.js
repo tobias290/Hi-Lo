@@ -25,6 +25,10 @@ class PlayerBoard {
 
         this.cards[column].push(card);
     }
+
+    get cards() {
+        return this.cards;
+    }
 }
 
 module.exports = PlayerBoard;

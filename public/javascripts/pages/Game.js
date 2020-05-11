@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import ApiService from "../apiService";
 import GamePhase from "../../../gobjects/GamePhase";
 import PlayersJoining from "../components/PlayersJoining";
+import PlayerBoard from "../components/PlayerBoard";
+import CardStacks from "../components/CardStacks";
 
 export default class Game extends React.Component {
     constructor(props) {
@@ -15,6 +17,7 @@ export default class Game extends React.Component {
         }
 
         this.updateGameState = this.updateGameState.bind(this);
+        this.getClientPlayer = this.getClientPlayer.bind(this);
     }
 
     componentDidMount() {
@@ -60,16 +63,28 @@ export default class Game extends React.Component {
             });
     }
 
+    /**
+     * Gets the details for the clients player.
+     *
+     * @returns {*} - Returns the player.
+     */
+    getClientPlayer() {
+        return this.state.game.players.find(player => player.name === this.props.playerName);
+    }
+
     render() {
         return this.state.game === null ? <h1>Loading...</h1> : (
             <>
                 <div className="game-top-bar">
-                   <h1 className="game-title">Hi-Lo</h1>
-                   <div className="game-details">
-                       <span className="game-details__detail"><strong>Player Name:</strong> <span>{this.props.playerName}</span></span>
-                       <span className="game-details__detail"><strong>Game Code:</strong> {this.props.gameCode}</span>
-                       <span className="game-details__detail"><strong>No. of Players:</strong> {this.state.game.players.length}/8</span>
-                   </div>
+                    <h1 className="game-top-bar__title">Hi-Lo</h1>
+                    <div className="game-top-bar__message">
+                        {this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && "Pick starting two cards"}
+                    </div>
+                    <div className="game-top-bar__details">
+                       <span className="game-top-bar__detail"><strong>Player Name:</strong> <span>{this.props.playerName}</span></span>
+                       <span className="game-top-bar__detail"><strong>Game Code:</strong> {this.props.gameCode}</span>
+                       <span className="game-top-bar__detail"><strong>No. of Players:</strong> {this.state.game.players.length}/8</span>
+                    </div>
                 </div>
 
                 {
@@ -80,6 +95,14 @@ export default class Game extends React.Component {
                         playerIsHost={this.state.playerIsHost}
                         players={this.state.game.players}
                     />
+                }
+
+                {
+                    (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS || this.state.game.currentPhase === GamePhase.PLAYER_TURN) &&
+                    <div className="play-area">
+                        <PlayerBoard cards={this.getClientPlayer().board.cards} />
+                        <CardStacks stack={this.state.game.stack.stack} discard={this.state.game.discard.stack} />
+                    </div>
                 }
             </>
         );

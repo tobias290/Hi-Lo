@@ -75,7 +75,6 @@ body {
   border: 5px solid white;
   border-radius: 10px;
   height: 175px;
-  margin: 0.5rem;
   width: 100px; }
   .card.card--hover-effect {
     cursor: pointer;
@@ -132,6 +131,20 @@ body {
     justify-content: space-around;
     width: 100%; }
 
+.player-board {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: auto auto auto auto;
+  width: fit-content; }
+
+.card-stacks {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: fit-content; }
+  .card-stacks .card {
+    margin: 0.25rem 2rem; }
+
 .title {
   font-size: 5rem;
   padding-top: 1rem;
@@ -151,19 +164,28 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem; }
-  .game-top-bar .game-title {
+  .game-top-bar .game-top-bar__title {
     margin: 0;
     width: fit-content; }
-  .game-top-bar .game-details {
+  .game-top-bar .game-top-bar__message {
+    align-self: center;
+    font-size: 2rem; }
+  .game-top-bar .game-top-bar__details {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     height: 100%;
     width: 175px; }
-    .game-top-bar .game-details .game-details__detail {
+    .game-top-bar .game-top-bar__details .game-top-bar__detail {
       display: flex;
       justify-content: space-between;
       width: 100%; }
+
+.play-area {
+  align-items: center;
+  display: flex;
+  height: calc(100% - 76px);
+  justify-content: space-around; }
 
 /*# sourceMappingURL=style.css.map */

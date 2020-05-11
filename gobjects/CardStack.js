@@ -47,6 +47,19 @@ class CardStack {
         return this.stack.pop();
     }
 
+    /**
+     * @public
+     *
+     * Add a card to the stack
+     *
+     * @param {Card} card - Card to add to stack
+     * @param {boolean} faceUp - Flip the card to face up.
+     */
+    push(card, faceUp=false) {
+        card.flip(faceUp);
+        this.stack.push(card);
+    }
+
     get length() {
         return this.stack.length;
     }
