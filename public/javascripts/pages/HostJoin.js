@@ -10,6 +10,7 @@ export default class HostJoin extends React.Component {
             showHostGameForm: false,
             showJoinGameForm: false,
             failedToJoinGame: false,
+            errorMessage: "",
         }
 
         this.hostPlayerNameInput = React.createRef();
@@ -48,7 +49,7 @@ export default class HostJoin extends React.Component {
                 if (resp.success)
                     this.props.joinGame(resp.player_name, resp.game_code);
                 else
-                    this.setState({failedToJoinGame: true});
+                    this.setState({failedToJoinGame: true, errorMessage: resp.error});
             })
     }
 
@@ -97,7 +98,10 @@ export default class HostJoin extends React.Component {
                 {
                     this.state.showJoinGameForm &&
                     <form className="options form" onSubmit={this.joinGame}>
-                        {this.state.failedToJoinGame && <h2 className="error" style={{margin: 0}}>Game does not exist, try a different game code</h2>}
+                        {
+                            this.state.failedToJoinGame &&
+                            <h2 className="error" style={{margin: 0}}>{this.state.errorMessage}</h2>
+                        }
                         <input
                             className="form__input form__input--x-large"
                             name="player"

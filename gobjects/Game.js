@@ -156,6 +156,15 @@ class Game {
         this.currentPhase = GamePhase.PLAYERS_PICKING_STARTING_CARDS;
     }
 
+    /**
+     * @public
+     *
+     * @returns {boolean} - Returns true if the game has started, false if not.
+     */
+    hasStarted() {
+        return this.currentPhase !== GamePhase.PLAYERS_JOINING;
+    }
+
     get gameCode() {
         return this.gameCode;
     }
