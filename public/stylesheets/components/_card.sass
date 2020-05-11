@@ -1,0 +1,61 @@
+.card
+    background: rgb(149, 255, 0)
+    border: 5px solid white
+    border-radius: 10px
+    height: 175px
+    margin: .5rem
+    width: 100px
+
+    &.card--hover-effect
+        cursor: pointer
+        transition: all 50ms linear
+
+        &:hover
+            box-shadow: 5px 5px 10px rgba(black, .3)
+            transform: scale(1.05)
+
+    &.card--face
+        align-items: center
+        display: flex
+        justify-content: center
+        position: relative
+
+        & > h1
+            font-size: 4rem
+
+        & > span
+            font-size: 1.5rem
+            position: absolute
+
+            &:first-child
+                left: 10px
+                top: 10px
+
+            &:last-child
+                right: 10px
+                bottom: 10px
+                transform: rotate(180deg)
+
+
+    &.card--back
+        align-items: center
+        position: relative
+        display: flex
+        justify-content: center
+        flex-direction: column
+
+        & > span
+            font-size: 2rem
+            position: absolute
+            width: fit-content
+
+            &:first-child
+                top: 25px
+                transform: rotate(-210deg)
+
+            &:last-child
+                bottom: 25px
+                transform: rotate(-30deg)
+
+    .card--underline-value
+        text-decoration: underline

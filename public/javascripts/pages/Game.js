@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ApiService from "../apiService";
+import GamePhase from "../../../gobjects/GamePhase";
+import Card from "../components/Card";
 
 export default class Game extends React.Component {
     constructor(props) {
@@ -61,16 +63,11 @@ export default class Game extends React.Component {
     render() {
         return this.state.game === null ? <h1>Loading...</h1> : (
             <>
-                <h1>Game</h1>
-                <div>Name: {this.props.playerName} {this.state.playerIsHost ? "Hosting" : ""}</div>
-                <div>Game Code: {this.props.gameCode}</div>
-                <div>
-                    <div>Other Players:</div>
-                    <ul>
-                        {this.state.game.players.map(player =>
-                            <li>{player.name}</li>
-                        )}
-                    </ul>
+                <h1 className="game-title">Hi-Lo</h1>
+                <div className="game-details">
+                    <span className="game-details__detail"><strong>Player Name:</strong> <span>{this.props.playerName}</span></span>
+                    <span className="game-details__detail"><strong>Game Code:</strong> {this.props.gameCode}</span>
+                    <span className="game-details__detail"><strong>No. of Players:</strong> {this.state.game.players.length}/8</span>
                 </div>
             </>
         );
