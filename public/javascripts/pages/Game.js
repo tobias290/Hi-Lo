@@ -111,13 +111,13 @@ export default class Game extends React.Component {
                 {
                     (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS || this.state.game.currentPhase === GamePhase.PLAYER_TURN) &&
                     <div className="play-area">
-                        <PlayerBoard cards={this.getClientPlayer().board.cards} />
+                        <PlayerBoard board={this.getClientPlayer().board} />
                         <div className="play-area__right">
                             <CardStacks stack={this.state.game.stack.stack} discard={this.state.game.discard.stack} />
                             <div style={{transform: "scale(0.5)", height: "500px", width: "462px"}}>
                                 <h1 className="header-no-margin">Player to your left cards</h1>
                                 <br />
-                                <PlayerBoard cards={this.getClientsLeftPlayer().board.cards} />
+                                <PlayerBoard board={this.getClientsLeftPlayer().board} displayScore={false} />
                             </div>
                         </div>
                         <div>

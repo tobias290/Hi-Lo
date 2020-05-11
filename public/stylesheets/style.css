@@ -134,6 +134,12 @@ body {
     justify-content: space-around;
     width: 100%; }
 
+.player-board-info {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0; }
+
 .player-board {
   display: grid;
   grid-gap: 0.5rem;
