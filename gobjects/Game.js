@@ -28,7 +28,7 @@ class Game {
      *
      * @type {number}
      */
-    currentPlayerTurn = 0;
+    currentPlayerTurnIndex = 0;
 
     /**
      * @private
@@ -174,6 +174,13 @@ class Game {
 
     get discard() {
         return this.discard;
+    }
+
+    toJSON() {
+        return {
+            ...this,
+            currentPlayerTurn: this.players[this.currentPlayerTurnIndex],
+        }
     }
 }
 
