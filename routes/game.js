@@ -84,7 +84,10 @@ router.get("/:gameCode/turn-place-card", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
 
     if (game !== undefined) {
-        game.placeCardOnCurrentPlayersBoard(req.query["column"], req.query["row"]);
+        if (req.query["deck"] === "discard")
+            game.placeCurrentPlayersCardOnDiscard();
+        else
+            game.placeCardOnCurrentPlayersBoard(req.query["column"], req.query["row"]);
         req.app.get("event").emit("ws", "update:game");
     }
 

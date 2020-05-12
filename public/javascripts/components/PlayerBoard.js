@@ -91,8 +91,10 @@ export default class PlayerBoard extends React.Component {
      * @param {number} cardRow - Card's row.
      */
     placeCard(cardColumn, cardRow) {
-        ApiService
-            .get(ApiService.URLS.placeCardOnBoard(this.props.game.gameCode), {column: cardColumn, row: cardRow});
+        ApiService.get(
+            ApiService.URLS.placeCardOnBoard(this.props.game.gameCode),
+            {location: "board", column: cardColumn, row: cardRow}
+        );
     }
 
     render() {

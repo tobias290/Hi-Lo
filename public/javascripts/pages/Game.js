@@ -158,6 +158,11 @@ export default class Game extends React.Component {
                                     this.getClientPlayer().turnPhase === PlayerTurnPhase.PICKING_CARD &&
                                     this.isClientPlayersTurn()
                                 }
+                                clientPlayerDiscardCard={
+                                    this.state.game.currentPhase === GamePhase.PLAYER_TURN &&
+                                    this.getClientPlayer().turnPhase === PlayerTurnPhase.PLACING_CARD &&
+                                    this.isClientPlayersTurn()
+                                }
                                 cardInHand={this.getClientPlayer().cardInHand}
                                 stack={this.state.game.stack.stack}
                                 discard={this.state.game.discard.stack}

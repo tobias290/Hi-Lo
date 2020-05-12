@@ -237,6 +237,15 @@ class Game {
     }
 
     /**
+     * @public
+     *
+     * Places the current player's card onto the discard pile.
+     */
+    placeCurrentPlayersCardOnDiscard() {
+        this.discard.push(this.getCurrentPlayer().popCardInHand(), true);
+    }
+
+    /**
      * Gets the current player.
      *
      * @returns {Player}

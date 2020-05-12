@@ -13,12 +13,36 @@ export default class CardStacks extends React.Component {
     /**
      * @private
      *
+     * Gets the correct action to perform.
+     *
+     * @param {string} deck - The deck this action is called from.
+     */
+    getCardAction(deck) {
+        if (this.props.clientPlayerPickCard)
+            this.takeCardIntoHand(deck);
+        else if (this.props.clientPlayerDiscardCard && deck === "discard")
+            this.discardCardFromHand();
+    }
+
+    /**
+     * @private
+     *
      * Takes a card from either deck into the player's hand.
      *
      * @param {string} deck - Deck to take card from.
      */
     takeCardIntoHand(deck) {
         ApiService.get(ApiService.URLS.takeCardIntoHand(this.props.gameCode), {deck: deck});
+    }
+
+    /**
+     * @private
+     *
+     * Discard the player's card to the discard pile
+     */
+    discardCardFromHand() {
+        ApiService
+            .get(ApiService.URLS.placeCardOnBoard(this.props.gameCode), {deck: "discard"});
     }
 
     render() {
@@ -38,7 +62,7 @@ export default class CardStacks extends React.Component {
                     <Card
                         value={this.props.stack[0].value}
                         isInteractable={this.props.clientPlayerPickCard}
-                        onClick={() => this.takeCardIntoHand("draw")}
+                        onClick={() => this.getCardAction("draw")}
                     />
                 </span>
                 }
@@ -48,8 +72,8 @@ export default class CardStacks extends React.Component {
                         <span>Discard Deck</span>
                         <Card
                             value={this.props.discard[0].value}
-                            isInteractable={this.props.clientPlayerPickCard}
-                            onClick={() => this.takeCardIntoHand("discard")}
+                            isInteractable={this.props.clientPlayerPickCard || this.props.clientPlayerDiscardCard}
+                            onClick={() => this.getCardAction("discard")}
                         />
                     </span>
                 }
@@ -61,6 +85,7 @@ export default class CardStacks extends React.Component {
 CardStacks.propTypes = {
     gameCode: PropTypes.string,
     clientPlayerPickCard: PropTypes.bool,
+    clientPlayerDiscardCard: PropTypes.bool,
     cardInHand: PropTypes.object,
     stack: PropTypes.array,
     discard: PropTypes.array,

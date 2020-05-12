@@ -84,6 +84,19 @@ class Player {
     /**
      * @public
      *
+     * Returns the card in hand the sets it to null.
+     *
+     * @returns {Card} - Returns the current card in hand.
+     */
+    popCardInHand() {
+        let cardInHand = this.cardInHand;
+        this.cardInHand = null;
+        return cardInHand;
+    }
+
+    /**
+     * @public
+     *
      * Places the card from the player's hand into their board
      *
      * @param {number} column - Cards column.
