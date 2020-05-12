@@ -8,6 +8,10 @@ export default class PlayersJoining extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            errorMessage: "",
+        };
+
         this.players = this.players.bind(this);
         this.playersTop = this.playersTop.bind(this);
         this.playersBottom = this.playersBottom.bind(this);
@@ -19,7 +23,11 @@ export default class PlayersJoining extends React.Component {
      */
     startGame() {
         ApiService
-            .get(ApiService.URLS.startGame(this.props.gameCode));
+            .get(ApiService.URLS.startGame(this.props.gameCode))
+            .then(resp => {
+                if (!resp.success)
+                    this.setState({errorMessage: resp.error});
+            })
     }
 
     /**
@@ -68,6 +76,7 @@ export default class PlayersJoining extends React.Component {
                         <span key={player.name}>{player.name}</span>
                     )}
                 </div>
+                {this.state.errorMessage !== "" && <h1 className="error">{this.state.errorMessage}</h1>}
             </div>
         );
     }

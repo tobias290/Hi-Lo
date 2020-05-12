@@ -13,14 +13,13 @@ router.get("/join", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.query["code"]);
     let errorMessage;
 
-    // TODO: Functionality to max player limit
-
     if (game !== undefined) {
         if (game.hasStarted()) {
             errorMessage = "Cannot join this game because it has already started";
+        } else if (game.maxPlayerLimitReached()) {
+            errorMessage = "Cannot join this game because it already has the maximum amount of players";
         } else {
             req.app.get("gamesManager").findGame(req.query["code"]).addPlayer(new Player(req.query["player"]));
-
             req.app.get("event").emit("ws", "update:game");
         }
     } else {
@@ -37,13 +36,20 @@ router.get("/join", (req, res) => {
 
 router.get("/:gameCode/start", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
+    let errorMessage;
 
     if (game !== undefined) {
-        game.start();
-        req.app.get("event").emit("ws", "update:game");
+        if (game.canStartGame()) {
+            game.start();
+            req.app.get("event").emit("ws", "update:game");
+        } else {
+            errorMessage = "Cannot start game, need at least two players";
+        }
+    } else {
+        errorMessage = "Game does not exist";
     }
 
-    res.json(game !== undefined ? {started: true} : {error: "Game does not exist"});
+    res.json({success: game !== undefined && errorMessage === undefined, error: errorMessage});
 });
 
 router.get("/:gameCode/state", (req, res) => {

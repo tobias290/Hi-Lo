@@ -112,6 +112,15 @@ class Game {
     /**
      * @private
      *
+     * Maximum number of players per game.
+     *
+     * @type {number}
+     */
+    MAX_NUMBER_OF_PLAYERS = 8;
+
+    /**
+     * @private
+     *
      * Players in this game.
      *
      * @type {Array<Player>}
@@ -134,12 +143,34 @@ class Game {
     /**
      * @public
      *
+     * Checks the number of players in this game against the maximum allowed per game.
+     *
+     * @returns {boolean} - Returns true if that maximum number of players has been reached, false if not.
+     */
+    maxPlayerLimitReached() {
+        return this.players.length >= this.MAX_NUMBER_OF_PLAYERS;
+    }
+
+    /**
+     * @public
+     *
      * Adds a new player to the game.
      *
      * @param {Player} player - New player to add to game.
      */
     addPlayer(player) {
         this.players.push(player);
+    }
+
+    /**
+     * @public
+     *
+     * Checks to make sure more than two players are in a game. If not then do not start the game.
+     *
+     * @returns {boolean} - Returns true if the game can be started. False if not.
+     */
+    canStartGame() {
+        return this.players.length >= 2;
     }
 
     /**
