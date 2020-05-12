@@ -78,7 +78,15 @@ export default class Game extends React.Component {
         } else if(this.state.game.currentPhase === GamePhase.PLAYERS_JOINING) {
             return <span>GAME CODE: <strong>{this.props.gameCode}</strong></span>
         } else if (this.state.game.currentPhase === GamePhase.PLAYER_TURN && this.isClientPlayersTurn()) {
-            return "It is your turn";
+            if (this.getClientPlayer().turnPhase === PlayerTurnPhase.PICKING_CARD) {
+                return "Pick a card from either the deck or discard";
+            } else if (this.getClientPlayer().turnPhase === PlayerTurnPhase.PLACING_CARD) {
+                return "Place the card on your board or on the discard";
+            } else if (this.getClientPlayer().turnPhase === PlayerTurnPhase.REVEAL_CARD) {
+                return "Flip a card face up";
+            } else {
+                return "It is your turn";
+            }
         } else if (this.state.game.currentPhase === GamePhase.PLAYER_TURN && !this.isClientPlayersTurn()) {
             return `It is ${this.state.game.players[this.state.game.currentPlayerTurnIndex].name}'s turn`;
         }

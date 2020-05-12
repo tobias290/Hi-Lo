@@ -84,19 +84,6 @@ class Player {
     /**
      * @public
      *
-     * Returns the card in hand the sets it to null.
-     *
-     * @returns {Card} - Returns the current card in hand.
-     */
-    popCardInHand() {
-        let cardInHand = this.cardInHand;
-        this.cardInHand = null;
-        return cardInHand;
-    }
-
-    /**
-     * @public
-     *
      * Places the card from the player's hand into their board
      *
      * @param {number} column - Cards column.
@@ -107,7 +94,29 @@ class Player {
     placeCardOnBoard(column, row) {
         let replacedCard = this.board.replaceCard(this.cardInHand, column, row);
         this.cardInHand = null;
+        this.turnPhase = PlayerTurnPhase.PICKING_CARD;
         return replacedCard;
+    }
+
+    /**
+     * @public
+     *
+     * Returns the card in hand the sets it to null.
+     *
+     * @returns {Card} - Returns the current card in hand.
+     */
+    popCardFromHandForDiscard() {
+        let cardInHand = this.cardInHand;
+        this.cardInHand = null;
+        this.turnPhase = PlayerTurnPhase.REVEAL_CARD;
+        return cardInHand;
+    }
+
+    /**
+     * Ends the player;s turn by setting their turn phase back to picking card.
+     */
+    endTurn() {
+        this.turnPhase = PlayerTurnPhase.PICKING_CARD;
     }
 
     get name() {

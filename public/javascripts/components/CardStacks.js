@@ -70,6 +70,7 @@ export default class CardStacks extends React.Component {
                     this.props.discard.length > 0 &&
                     <span title="Discard Deck">
                         <span>Discard Deck</span>
+                        {/* TODO: Create discard placeholder to players can place a card here even when there is no card in the discard */}
                         <Card
                             value={this.props.discard[0].value}
                             isInteractable={this.props.clientPlayerPickCard || this.props.clientPlayerDiscardCard}

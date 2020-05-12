@@ -15,6 +15,8 @@ export default class PlayerBoard extends React.Component {
         this.cardsInteractable = this.cardsInteractable.bind(this);
         this.getCardAction = this.getCardAction.bind(this);
         this.pickStartingCard = this.pickStartingCard.bind(this);
+        this.placeCard = this.placeCard.bind(this);
+        this.flipCard = this.flipCard.bind(this);
     }
 
     /**
@@ -46,10 +48,10 @@ export default class PlayerBoard extends React.Component {
      * @returns {boolean} - Returns true if a card is interactable.
      */
     cardsInteractable(cardColumn, cardRow) {
-        // NOTE: Might change to check each card instead of all of them at once
         return (
             (this.props.isClientsPlayersTurn && this.props.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS) ||
-            (this.props.isClientsPlayersTurn && this.props.game.players[this.props.game.currentPlayerTurnIndex].turnPhase === PlayerTurnPhase.PLACING_CARD)
+            (this.props.isClientsPlayersTurn && this.props.game.players[this.props.game.currentPlayerTurnIndex].turnPhase === PlayerTurnPhase.PLACING_CARD) ||
+            (this.props.isClientsPlayersTurn && this.props.game.players[this.props.game.currentPlayerTurnIndex].turnPhase === PlayerTurnPhase.REVEAL_CARD && !this.props.board.cards[cardColumn][cardRow].faceUp)
         );
     }
 
@@ -66,6 +68,8 @@ export default class PlayerBoard extends React.Component {
             this.pickStartingCard(cardColumn, cardRow);
         } else if (this.props.isClientsPlayersTurn && this.props.game.players[this.props.game.currentPlayerTurnIndex].turnPhase === PlayerTurnPhase.PLACING_CARD) {
             this.placeCard(cardColumn, cardRow);
+        } else if (this.props.isClientsPlayersTurn && this.props.game.players[this.props.game.currentPlayerTurnIndex].turnPhase === PlayerTurnPhase.REVEAL_CARD && !this.props.board.cards[cardColumn][cardRow].faceUp) {
+            this.flipCard(cardColumn, cardRow);
         }
     }
 
@@ -95,6 +99,19 @@ export default class PlayerBoard extends React.Component {
             ApiService.URLS.placeCardOnBoard(this.props.game.gameCode),
             {location: "board", column: cardColumn, row: cardRow}
         );
+    }
+
+    /**
+     * @private
+     *
+     * Places a card from the player's hand onto their board.
+     *
+     * @param {number} cardColumn - Card's column.
+     * @param {number} cardRow - Card's row.
+     */
+    flipCard(cardColumn, cardRow) {
+        ApiService.get(
+            ApiService.URLS.revealCardOnBoard(this.props.game.gameCode), {column: cardColumn, row: cardRow});
     }
 
     render() {

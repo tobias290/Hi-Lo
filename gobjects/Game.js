@@ -234,6 +234,7 @@ class Game {
     placeCardOnCurrentPlayersBoard(column, row) {
         let replacedCard = this.getCurrentPlayer().placeCardOnBoard(column, row);
         this.discard.push(replacedCard, true);
+        this.nextPlayersTurn();
     }
 
     /**
@@ -242,7 +243,21 @@ class Game {
      * Places the current player's card onto the discard pile.
      */
     placeCurrentPlayersCardOnDiscard() {
-        this.discard.push(this.getCurrentPlayer().popCardInHand(), true);
+        this.discard.push(this.getCurrentPlayer().popCardFromHandForDiscard(), true);
+    }
+
+    /**
+     * @public
+     *
+     * Flips a player's card when they put a card direction onto the discard.
+     *
+     *  @param {number} column - Cards column.
+     * @param {number} row - Cards row.
+     */
+    flipCurrentsPlayersCard(column, row) {
+        this.getCurrentPlayer().board.flipCardFaceUp(column, row);
+        this.getCurrentPlayer().endTurn();
+        this.nextPlayersTurn();
     }
 
     /**
