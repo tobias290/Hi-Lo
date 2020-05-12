@@ -205,13 +205,44 @@ class Game {
      * @param {number} row - Cards row.
      */
     pickCurrentPlayersStartingCard(column, row) {
-        this.players[this.currentPlayerTurnIndex].board.flipCardFaceUp(column, row);
+        this.getCurrentPlayer().board.flipCardFaceUp(column, row);
 
         if (this.players[this.currentPlayerTurnIndex].board.noOfFaceUpCards() === 2)
             this.nextPlayersTurn();
 
         if (this.players.every(player => player.board.noOfFaceUpCards() === 2))
             this.currentPhase = GamePhase.PLAYER_TURN;
+    }
+
+    /**
+     * Player draws a card into their hand.
+     *
+     * @param {boolean} fromDrawDeck - True if the player takes the card from the draw/stack deck. False if from the discard.
+     */
+    pickCurrentPlayersCard(fromDrawDeck) {
+        this.getCurrentPlayer().takeCardIntoHand(fromDrawDeck ? this.stack.pop() : this.discard.pop());
+    }
+
+    /**
+     * @public
+     *
+     * Places the card from the player's hand into their board.
+     *
+     * @param {number} column - Cards column.
+     * @param {number} row - Cards row.
+     */
+    placeCardOnCurrentPlayersBoard(column, row) {
+        let replacedCard = this.getCurrentPlayer().placeCardOnBoard(column, row);
+        this.discard.push(replacedCard, true);
+    }
+
+    /**
+     * Gets the current player.
+     *
+     * @returns {Player}
+     */
+    getCurrentPlayer() {
+        return this.players[this.currentPlayerTurnIndex];
     }
 
     /**
@@ -250,7 +281,7 @@ class Game {
     toJSON() {
         return {
             ...this,
-            currentPlayerTurn: this.players[this.currentPlayerTurnIndex],
+            currentPlayerTurn: this.getCurrentPlayer(),
         }
     }
 }

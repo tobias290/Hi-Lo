@@ -29,6 +29,21 @@ class PlayerBoard {
     /**
      * @public
      *
+     * Replaces a card.
+     *
+     * @param {Card} card - Card to replace.
+     * @param {number} column - Cards column.
+     * @param {number} row - Cards row.
+     */
+    replaceCard(card, column, row) {
+        let replacedCard = this.cards[column][row];
+        this.cards[column][row] = card;
+        return replacedCard;
+    }
+
+    /**
+     * @public
+     *
      * Gets the score of the player's board from all the face up cards.
      *
      * @returns {number} - Returns the player's score

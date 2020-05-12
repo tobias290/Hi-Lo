@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import GamePhase from "../../../gobjects/GamePhase";
+import PlayerTurnPhase from "../../../gobjects/PlayerTurnPhase";
 
 import Card from "./Card";
 import ApiService from "../apiService";
@@ -11,6 +12,7 @@ export default class PlayerBoard extends React.Component {
         super(props);
 
         this.renderCards = this.renderCards.bind(this);
+        this.cardsInteractable = this.cardsInteractable.bind(this);
         this.getCardAction = this.getCardAction.bind(this);
         this.pickStartingCard = this.pickStartingCard.bind(this);
     }
@@ -36,14 +38,34 @@ export default class PlayerBoard extends React.Component {
     /**
      * @private
      *
+     * Checks to see if a card is interactable.
+     *
+     * @param {number} cardColumn - Card's column.
+     * @param {number} cardRow - Card's row.
+     *
+     * @returns {boolean} - Returns true if a card is interactable.
+     */
+    cardsInteractable(cardColumn, cardRow) {
+        // NOTE: Might change to check each card instead of all of them at once
+        return (
+            (this.props.isClientsPlayersTurn && this.props.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS) ||
+            (this.props.isClientsPlayersTurn && this.props.game.players[this.props.game.currentPlayerTurnIndex].turnPhase === PlayerTurnPhase.PLACING_CARD)
+        );
+    }
+
+    /**
+     * @private
+     *
      * Gets the correct action for the card.
      *
      * @param {number} cardColumn - Card's column.
      * @param {number} cardRow - Card's row.
      */
     getCardAction(cardColumn, cardRow) {
-        if (this.props.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && this.props.cardsInteractable) {
+        if (this.props.isClientsPlayersTurn && this.props.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS) {
             this.pickStartingCard(cardColumn, cardRow);
+        } else if (this.props.isClientsPlayersTurn && this.props.game.players[this.props.game.currentPlayerTurnIndex].turnPhase === PlayerTurnPhase.PLACING_CARD) {
+            this.placeCard(cardColumn, cardRow);
         }
     }
 
@@ -58,6 +80,19 @@ export default class PlayerBoard extends React.Component {
     pickStartingCard(cardColumn, cardRow) {
         ApiService
             .get(ApiService.URLS.pickStartingCard(this.props.game.gameCode), {column: cardColumn, row: cardRow});
+    }
+
+    /**
+     * @private
+     *
+     * Places a card from the player's hand onto their board.
+     *
+     * @param {number} cardColumn - Card's column.
+     * @param {number} cardRow - Card's row.
+     */
+    placeCard(cardColumn, cardRow) {
+        ApiService
+            .get(ApiService.URLS.placeCardOnBoard(this.props.game.gameCode), {column: cardColumn, row: cardRow});
     }
 
     render() {
@@ -76,7 +111,7 @@ export default class PlayerBoard extends React.Component {
                         <Card
                             key={`${cardColumn}-${cardRow}`}
                             value={card.value}
-                            isInteractable={this.props.cardsInteractable}
+                            isInteractable={this.cardsInteractable(cardColumn, cardRow)}
                             onClick={() => this.getCardAction(cardColumn, cardRow)}
                         />
                     )}
@@ -88,12 +123,13 @@ export default class PlayerBoard extends React.Component {
 
 PlayerBoard.propTypes = {
     game: PropTypes.object,
+    isClientsPlayersTurn: PropTypes.bool,
+    clientPlayerTurnPhase: PropTypes.number,
     board: PropTypes.object,
     displayScore: PropTypes.bool,
-    cardsInteractable: PropTypes.bool,
 }
 
 PlayerBoard.defaultProps = {
+    isClientsPlayersTurn: false,
     displayScore: true,
-    cardsInteractable: false,
 }

@@ -69,4 +69,30 @@ router.get("/:gameCode/pick-starting-card", (req, res) => {
     res.json(game !== undefined ? {success: true} : {success: false, error: "Game does not exist"});
 });
 
+router.get("/:gameCode/turn-pick-card", (req, res) => {
+    let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
+
+    if (game !== undefined) {
+        game.pickCurrentPlayersCard(req.query["deck"] === "draw");
+        req.app.get("event").emit("ws", "update:game");
+    }
+
+    res.json(game !== undefined ? {success: true} : {success: false, error: "Game does not exist"});
+});
+
+router.get("/:gameCode/turn-place-card", (req, res) => {
+    let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
+
+    if (game !== undefined) {
+        game.placeCardOnCurrentPlayersBoard(req.query["column"], req.query["row"]);
+        req.app.get("event").emit("ws", "update:game");
+    }
+
+    res.json(game !== undefined ? {success: true} : {success: false, error: "Game does not exist"});
+});
+
+router.get("/:gameCode/turn-reveal-card", (req, res) => {
+
+});
+
 module.exports = router;

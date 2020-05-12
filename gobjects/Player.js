@@ -40,6 +40,13 @@ class Player {
     turnPhase = PlayerTurnPhase.PICKING_CARD;
 
     /**
+     * Current card that the player picked.
+     *
+     * @type {Card}
+     */
+    cardInHand = null;
+
+    /**
      * Player constructor
      *
      * @param {string} name - Name of the player.
@@ -61,12 +68,49 @@ class Player {
         this.board.addCard(card);
     }
 
+    /**
+     * @public
+     *
+     * Picks up a card and takes it into hand.
+     *
+     * @param {Card} card - Card picked up.
+     */
+    takeCardIntoHand(card) {
+        this.cardInHand = card;
+        this.cardInHand.flip(true);
+        this.turnPhase = PlayerTurnPhase.PLACING_CARD;
+    }
+
+    /**
+     * @public
+     *
+     * Places the card from the player's hand into their board
+     *
+     * @param {number} column - Cards column.
+     * @param {number} row - Cards row.
+     *
+     * @returns {Card} - Returns the card the new card replaced.
+     */
+    placeCardOnBoard(column, row) {
+        let replacedCard = this.board.replaceCard(this.cardInHand, column, row);
+        this.cardInHand = null;
+        return replacedCard;
+    }
+
     get name() {
         return this.name;
     }
 
     get isHost() {
         return this.isHost;
+    }
+
+    get cardInHand() {
+        return this.cardInHand;
+    }
+
+    get turnPhase() {
+        return this.turnPhase;
     }
 
     get board() {

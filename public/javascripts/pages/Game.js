@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ApiService from "../apiService";
 import GamePhase from "../../../gobjects/GamePhase";
+import PlayerTurnPhase from "../../../gobjects/PlayerTurnPhase";
 import PlayersJoining from "../components/PlayersJoining";
 import PlayerBoard from "../components/PlayerBoard";
 import CardStacks from "../components/CardStacks";
@@ -146,15 +147,29 @@ export default class Game extends React.Component {
                     <div className="play-area">
                         <PlayerBoard
                             game={this.state.game}
+                            isClientsPlayersTurn={this.isClientPlayersTurn()}
                             board={this.getClientPlayer().board}
-                            cardsInteractable={this.isClientPlayersTurn() && this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS}
                         />
                         <div className="play-area__right">
-                            <CardStacks stack={this.state.game.stack.stack} discard={this.state.game.discard.stack} />
+                            <CardStacks
+                                gameCode={this.props.gameCode}
+                                clientPlayerPickCard={
+                                    this.state.game.currentPhase === GamePhase.PLAYER_TURN &&
+                                    this.getClientPlayer().turnPhase === PlayerTurnPhase.PICKING_CARD &&
+                                    this.isClientPlayersTurn()
+                                }
+                                cardInHand={this.getClientPlayer().cardInHand}
+                                stack={this.state.game.stack.stack}
+                                discard={this.state.game.discard.stack}
+                            />
                             <div style={{transform: "scale(0.5)", height: "500px", width: "462px"}}>
                                 <h1 className="header-no-margin">Player to your left cards</h1>
                                 <br />
-                                <PlayerBoard game={this.state.game} board={this.getClientsLeftPlayer().board} displayScore={false} />
+                                <PlayerBoard
+                                    game={this.state.game}
+                                    board={this.getClientsLeftPlayer().board}
+                                    displayScore={false}
+                                />
                             </div>
                         </div>
                         <div className="play-area__players-score">
