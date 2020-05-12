@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default class Game extends React.Component {
+export default class Card extends React.Component {
     /**
      * @private
      *
@@ -41,7 +41,7 @@ export default class Game extends React.Component {
 
     renderBackSide() {
         return (
-            <div className={`card card--back ${this.props.isInteractable ? "card--hover-effect" : ""}`}>
+            <div className={`card card--back ${this.props.isInteractable ? "card--hover-effect" : ""}`} onClick={this.props.isInteractable ? this.props.onClick : () => {}}>
                 <span>Hi-Lo</span>
                 <span>Hi-Lo</span>
             </div>
@@ -50,7 +50,7 @@ export default class Game extends React.Component {
 
     renderFaceSide() {
         return (
-            <div className={`card card--face ${this.props.isInteractable ? "card--hover-effect" : ""}`} style={{background: this.getCardColor(this.props.value)}}>
+            <div className={`card card--face ${this.props.isInteractable ? "card--hover-effect" : ""}`} onClick={this.props.isInteractable ? this.props.onClick : () => {}} style={{background: this.getCardColor(this.props.value)}}>
                 <span className={this.underlineCard() ? "card--underline-value" : ""}>{this.props.value}</span>
                 <h1 className={this.underlineCard() ? "card--underline-value" : ""}>{this.props.value}</h1>
                 <span className={this.underlineCard() ? "card--underline-value" : ""}>{this.props.value}</span>
@@ -59,11 +59,13 @@ export default class Game extends React.Component {
     }
 }
 
-Game.propTypes = {
+Card.propTypes = {
     value: PropTypes.number,
     isInteractable: PropTypes.bool,
+    onClick: PropTypes.func,
 }
 
-Game.defaultProps = {
+Card.defaultProps = {
     isInteractable: false,
+    onClick: () => {},
 }

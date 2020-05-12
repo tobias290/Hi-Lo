@@ -34,6 +34,12 @@ router.get("/join", (req, res) => {
     });
 });
 
+router.get("/:gameCode/state", (req, res) => {
+    let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
+
+    res.json(game !== undefined ? req.app.get("gamesManager").findGame(req.params["gameCode"]) : {error: "Game does not exist"});
+});
+
 router.get("/:gameCode/start", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
     let errorMessage;
@@ -52,10 +58,15 @@ router.get("/:gameCode/start", (req, res) => {
     res.json({success: game !== undefined && errorMessage === undefined, error: errorMessage});
 });
 
-router.get("/:gameCode/state", (req, res) => {
+router.get("/:gameCode/pick-starting-card", (req, res) => {
     let game = req.app.get("gamesManager").findGame(req.params["gameCode"]);
 
-    res.json(game !== undefined ? req.app.get("gamesManager").findGame(req.params["gameCode"]) : {error: "Game does not exist"});
+    if (game !== undefined) {
+        game.pickCurrentPlayersStartingCard(req.query["column"], req.query["row"]);
+        req.app.get("event").emit("ws", "update:game");
+    }
+
+    res.json(game !== undefined ? {success: true} : {success: false, error: "Game does not exist"});
 });
 
 module.exports = router;

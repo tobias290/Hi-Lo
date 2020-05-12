@@ -69,6 +69,16 @@ class PlayerBoard {
         return this.cards.flat();
     }
 
+    /**
+     * FLips a card to its face up side.
+     *
+     * @param {number} column - Cards column.
+     * @param {number} row - Cards row.
+     */
+    flipCardFaceUp(column, row) {
+        this.cards[column][row].flip(true);
+    }
+
     get cards() {
         return this.cards;
     }

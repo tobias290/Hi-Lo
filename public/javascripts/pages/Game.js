@@ -18,6 +18,7 @@ export default class Game extends React.Component {
 
         this.updateGameState = this.updateGameState.bind(this);
         this.getClientPlayer = this.getClientPlayer.bind(this);
+        this.isClientPlayersTurn = this.isClientPlayersTurn.bind(this);
     }
 
     componentDidMount() {
@@ -64,6 +65,23 @@ export default class Game extends React.Component {
     }
 
     /**
+     * Gets the correct message to display.
+     *
+     * @returns {string|null}
+     */
+    getGameMessage() {
+        if (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && this.isClientPlayersTurn()) {
+            return "Pick two starting cards"
+        } else if (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && !this.isClientPlayersTurn()) {
+            return "Other players are picking their two starting cards"
+        } else if(this.state.game.currentPhase === GamePhase.PLAYERS_JOINING) {
+            return <span>GAME CODE: <strong>{this.props.gameCode}</strong></span>
+        }
+    }
+
+    /**
+     * @private
+     *
      * Gets the details for the clients player.
      *
      * @returns {*} - Returns the player.
@@ -73,6 +91,8 @@ export default class Game extends React.Component {
     }
 
     /**
+     * @private
+     *
      * Gets the details for the left of clients player.
      *
      * @returns {*} - Returns the player.
@@ -80,7 +100,16 @@ export default class Game extends React.Component {
     getClientsLeftPlayer() {
         let clientPlayerIndex = this.state.game.players.indexOf(this.getClientPlayer());
 
-        return this.state.game.players[this.state.game.players.length <= clientPlayerIndex - 1 ? clientPlayerIndex : 0];
+        return this.state.game.players[clientPlayerIndex >= this.state.game.players.length - 1 ? 0 : clientPlayerIndex + 1];
+    }
+
+    /**
+     * @private
+     *
+     * @returns {boolean} - Returns true if it is the clients turn.
+     */
+    isClientPlayersTurn() {
+        return this.state.game.players.indexOf(this.getClientPlayer()) === this.state.game.currentPlayerTurnIndex;
     }
 
     render() {
@@ -89,8 +118,7 @@ export default class Game extends React.Component {
                 <div className="game-top-bar">
                     <h1 className="game-top-bar__title">Hi-Lo</h1>
                     <div className="game-top-bar__message">
-                        {this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && "Pick two starting cards"}
-                        {this.state.game.currentPhase === GamePhase.PLAYERS_JOINING && <span>GAME CODE: <strong>{this.props.gameCode}</strong></span>}
+                        {this.getGameMessage()}
                     </div>
                     <div className="game-top-bar__details">
                        <span className="game-top-bar__detail"><strong>Player Name:</strong> <span>{this.props.playerName}</span></span>
@@ -112,18 +140,22 @@ export default class Game extends React.Component {
                 {
                     (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS || this.state.game.currentPhase === GamePhase.PLAYER_TURN) &&
                     <div className="play-area">
-                        <PlayerBoard board={this.getClientPlayer().board} />
+                        <PlayerBoard
+                            game={this.state.game}
+                            board={this.getClientPlayer().board}
+                            cardsInteractable={this.isClientPlayersTurn() && this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS}
+                        />
                         <div className="play-area__right">
                             <CardStacks stack={this.state.game.stack.stack} discard={this.state.game.discard.stack} />
                             <div style={{transform: "scale(0.5)", height: "500px", width: "462px"}}>
                                 <h1 className="header-no-margin">Player to your left cards</h1>
                                 <br />
-                                <PlayerBoard board={this.getClientsLeftPlayer().board} displayScore={false} />
+                                <PlayerBoard game={this.state.game} board={this.getClientsLeftPlayer().board} displayScore={false} />
                             </div>
                         </div>
                         <div className="play-area__players-score">
                             {this.state.game.players.filter(player => player.name !== this.props.playerName).map(player =>
-                                <div className="player-details">
+                                <div className="player-details" key={player.name}>
                                     <span className="player-details__name">{player.name}</span>
                                     <span>Visible Score: {player.board.visibleScore}</span>
                                     <span>Number of Face Up Cards: {player.board.noOfFaceUpCards}</span>

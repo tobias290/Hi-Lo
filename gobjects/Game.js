@@ -196,6 +196,37 @@ class Game {
         return this.currentPhase !== GamePhase.PLAYERS_JOINING;
     }
 
+    /**
+     * @public
+     *
+     * Picks a starting card for the current player.
+     *
+     * @param {number} column - Cards column.
+     * @param {number} row - Cards row.
+     */
+    pickCurrentPlayersStartingCard(column, row) {
+        this.players[this.currentPlayerTurnIndex].board.flipCardFaceUp(column, row);
+
+        if (this.players[this.currentPlayerTurnIndex].board.noOfFaceUpCards() === 2)
+            this.nextPlayersTurn();
+
+        if (this.players.every(player => player.board.noOfFaceUpCards() === 2))
+            this.currentPhase = GamePhase.PLAYER_TURN;
+    }
+
+    /**
+     * @public
+     *
+     * Sets the current player to be the next player after the current.
+     */
+    nextPlayersTurn() {
+        if (this.currentPlayerTurnIndex >= this.players.length - 1) {
+            this.currentPlayerTurnIndex = 0;
+        } else {
+            this.currentPlayerTurnIndex += 1;
+        }
+    }
+
     get gameCode() {
         return this.gameCode;
     }
