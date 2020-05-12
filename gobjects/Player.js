@@ -1,4 +1,5 @@
 const PlayerBoard = require("./PlayerBoard");
+const PlayerTurnPhase = require("./PlayerTurnPhase");
 
 class Player {
     /**
@@ -27,6 +28,16 @@ class Player {
      * @type {PlayerBoard}
      */
     board = new PlayerBoard();
+
+    /**
+     * @private
+     *
+     * Current phase of the player's turn.
+     * If it is not their turn then it defaults to 'PICKING_CARD'.
+     *
+     * @type {number}
+     */
+    turnPhase = PlayerTurnPhase.PICKING_CARD;
 
     /**
      * Player constructor
