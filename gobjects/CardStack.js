@@ -63,6 +63,12 @@ class CardStack {
     get length() {
         return this.stack.length;
     }
+
+    toJSON() {
+        return {
+            stack: this.stack.reverse()
+        }
+    }
 }
 
 module.exports = CardStack;
