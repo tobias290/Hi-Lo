@@ -77,7 +77,12 @@ body {
   background: #95ff00;
   border: 5px solid white;
   border-radius: 10px;
+  cursor: default;
   height: 175px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
   width: 100px; }
   .card.card--hover-effect {
     cursor: pointer;
