@@ -66,7 +66,7 @@ class CardStack {
 
     toJSON() {
         return {
-            stack: this.stack.reverse()
+            stack: [...this.stack].reverse()
         }
     }
 }
