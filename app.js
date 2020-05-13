@@ -17,8 +17,6 @@ let indexRouter = require("./routes/index");
 let apiRouter = require("./routes/game");
 let wsRouter = require("./routes/ws");
 
-expressWs.getWss()
-
 app.use(cors()); // NOTE: Consider changing from global accept
 app.use(logger("dev"));
 app.use(express.json());

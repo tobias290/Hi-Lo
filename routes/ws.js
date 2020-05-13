@@ -11,6 +11,8 @@ router.ws("/:gameCode", (ws, req) => {
 
     ws.on("update:game", () => {
         req.app.get("wss").clients.forEach(function each(client) {
+            // FIXME: This also updates clients from a different game.
+            // FIXME: Find a way to work out which game they are connected to
             if (client.readyState === 1) {
                 client.send(JSON.stringify({
                     event: "update:game",
