@@ -4,7 +4,6 @@ import Card from "./Card";
 import ApiService from "../apiService";
 
 
-
 export default class CardStacks extends React.Component {
     constructor(props) {
         super(props);
@@ -55,29 +54,28 @@ export default class CardStacks extends React.Component {
                         <Card value={this.props.cardInHand.value} />
                     </span>
                 }
-                {
-                    this.props.stack.length > 0 &&
-                    <span title="Draw Deck">
+
+                <span title="Draw Deck">
                     <span>Draw Deck</span>
                     <Card
-                        value={this.props.stack[0].value}
+                        isPlaceholder={this.props.stack.length === 0}
+                        value={this.props.stack.length === 0 ? "Stack" : this.props.stack[0].value}
                         isInteractable={this.props.clientPlayerPickCard}
                         onClick={() => this.getCardAction("draw")}
                     />
                 </span>
-                }
-                {
-                    this.props.discard.length > 0 &&
-                    <span title="Discard Deck">
-                        <span>Discard Deck</span>
-                        {/* TODO: Create discard placeholder to players can place a card here even when there is no card in the discard */}
-                        <Card
-                            value={this.props.discard[0].value}
-                            isInteractable={this.props.clientPlayerPickCard || this.props.clientPlayerDiscardCard}
-                            onClick={() => this.getCardAction("discard")}
-                        />
-                    </span>
-                }
+
+                <span title="Discard Deck">
+                    <span>Discard Deck</span>
+                    {/* TODO: Create discard placeholder to players can place a card here even when there is no card in the discard */}
+                    <Card
+                        isPlaceholder={this.props.discard.length === 0}
+                        value={this.props.discard.length === 0 ? "Discard" : this.props.discard[0].value}
+                        isInteractable={this.props.clientPlayerPickCard || this.props.clientPlayerDiscardCard}
+                        onClick={() => this.getCardAction("discard")}
+                    />
+                </span>
+
             </div>
         );
     }

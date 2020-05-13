@@ -129,6 +129,14 @@ body {
       .card.card--back > span:last-child {
         bottom: 25px;
         transform: rotate(-30deg); }
+  .card.card--placeholder {
+    align-items: center;
+    border: 3px dashed white;
+    background: none;
+    display: flex;
+    justify-content: center; }
+    .card.card--placeholder:hover {
+      box-shadow: none; }
   .card .card--underline-value {
     text-decoration: underline; }
 

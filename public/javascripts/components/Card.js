@@ -36,7 +36,15 @@ export default class Card extends React.Component {
     }
 
     render() {
-        return this.props.value === null ? this.renderBackSide() : this.renderFaceSide();
+        return this.props.isPlaceholder ? this.renderPlaceholder() : this.props.value === null ? this.renderBackSide() : this.renderFaceSide();
+    }
+
+    renderPlaceholder() {
+        return (
+            <div className={`card card--placeholder ${this.props.isInteractable ? "card--hover-effect" : ""}`} onClick={this.props.isInteractable ? this.props.onClick : () => {}}>
+                {this.props.value}
+            </div>
+        )
     }
 
     renderBackSide() {
@@ -60,12 +68,14 @@ export default class Card extends React.Component {
 }
 
 Card.propTypes = {
+    isPlaceholder: PropTypes.bool,
     value: PropTypes.number,
     isInteractable: PropTypes.bool,
     onClick: PropTypes.func,
 }
 
 Card.defaultProps = {
+    isPlaceholder: false,
     isInteractable: false,
     onClick: () => {},
 }
