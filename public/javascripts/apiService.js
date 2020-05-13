@@ -10,6 +10,8 @@ export default class ApiService {
         takeCardIntoHand: (gameCode) => ApiService.BASE_URL + `/${gameCode}/turn-pick-card`,
         placeCardOnBoard: (gameCode) => ApiService.BASE_URL + `/${gameCode}/turn-place-card`,
         revealCardOnBoard: (gameCode) => ApiService.BASE_URL + `/${gameCode}/turn-reveal-card`,
+        startNextRound: (gameCode) => ApiService.BASE_URL + `/${gameCode}/start-next-round`,
+        endGame: (gameCode) => ApiService.BASE_URL + `/${gameCode}/end-game`,
     };
 
     static get(url, queryParams = {}) {

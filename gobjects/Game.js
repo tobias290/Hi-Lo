@@ -281,6 +281,51 @@ class Game {
         } else {
             this.currentPlayerTurnIndex += 1;
         }
+
+        if(this.checkRoundEnd())
+            this.checkGameEnd();
+    }
+
+
+    /**
+     * @public
+     *
+     * Starts a new game round.
+     */
+    startNewRound() {
+        this.players.forEach(player => player.reset());
+
+        this.start();
+    }
+
+    /**
+     * @public
+     *
+     * Checks to see if a round has finished.
+     */
+    checkRoundEnd() {
+        for (let player of this.players) {
+            if (player.board.flattenCards().every(card => card.faceUp)) {
+                this.currentPhase = GamePhase.ROUND_END;
+                this.currentPlayerTurnIndex = this.players.indexOf(player);
+
+                this.players.forEach(player => player.addVisibleScoreToOverallScore());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @public
+     *
+     * Checks to see if the game has ended.
+     */
+    checkGameEnd() {
+        if (this.players.some(player => player.overallScore >= 100)) {
+            this.currentPhase = GamePhase.GAME_END;
+            this.players.forEach(player => player.addVisibleScoreToOverallScore());
+        }
     }
 
     get gameCode() {

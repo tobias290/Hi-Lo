@@ -227,14 +227,32 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center; }
-    .play-area .play-area__players-score .player-details {
-      align-items: flex-start;
-      display: flex;
-      flex-direction: column;
-      font-size: 1.25rem;
-      justify-content: center;
-      margin: 1rem 0; }
-      .play-area .play-area__players-score .player-details .player-details__name {
-        text-decoration: underline; }
+  .play-area .player-details {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25rem;
+    justify-content: center;
+    margin: 1rem 0; }
+    .play-area .player-details .player-details__name {
+      text-decoration: underline; }
+
+.round-end-area {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 76px);
+  justify-content: space-around; }
+  .round-end-area .round-end__message {
+    font-size: 3rem; }
+
+.scores-table {
+  border-collapse: collapse;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 500px; }
+  .scores-table th, .scores-table td {
+    border: 2px solid white;
+    height: 40px; }
 
 /*# sourceMappingURL=style.css.map */

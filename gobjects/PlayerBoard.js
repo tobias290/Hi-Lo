@@ -11,6 +11,15 @@ class PlayerBoard {
     /**
      * @public
      *
+     * Resets the player's cards.
+     */
+    resetBoard() {
+        this.cards = [[], [], [], []];
+    }
+
+    /**
+     * @public
+     *
      * @param {Card} card - Card to add to board.
      */
     addCard(card) {
@@ -76,7 +85,7 @@ class PlayerBoard {
     }
 
     /**
-     * @private
+     * @public
      *
      * @returns {Card[]} - Returns a single dimension array of the cards.
      */

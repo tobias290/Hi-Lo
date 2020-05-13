@@ -20,6 +20,8 @@ export default class Game extends React.Component {
         this.updateGameState = this.updateGameState.bind(this);
         this.getClientPlayer = this.getClientPlayer.bind(this);
         this.isClientPlayersTurn = this.isClientPlayersTurn.bind(this);
+        this.startNextRound = this.startNextRound.bind(this);
+        this.endGame = this.endGame.bind(this);
     }
 
     componentDidMount() {
@@ -33,6 +35,8 @@ export default class Game extends React.Component {
             if (data.event === "update:game" && data.game !== undefined) {
                 console.log("Updating game state");
                 this.setState({game: data.game});
+            } else if (data.event === "update:game" && data.game === undefined) {
+                window.location.reload(true);
             }
         });
     }
@@ -66,6 +70,26 @@ export default class Game extends React.Component {
     }
 
     /**
+     * @private
+     *
+     * Starts the next game round.
+     */
+    startNextRound() {
+        ApiService.get(ApiService.URLS.startNextRound(this.props.gameCode));
+    }
+
+    /**
+     * @private
+     *
+     * Ends the game
+     */
+    endGame() {
+        ApiService.get(ApiService.URLS.endGame(this.props.gameCode));
+    }
+
+    /**
+     * @private
+     *
      * Gets the correct message to display.
      *
      * @returns {string|null}
@@ -89,6 +113,8 @@ export default class Game extends React.Component {
             }
         } else if (this.state.game.currentPhase === GamePhase.PLAYER_TURN && !this.isClientPlayersTurn()) {
             return `It is ${this.state.game.players[this.state.game.currentPlayerTurnIndex].name}'s turn`;
+        } else if (this.state.game.currentPhase === GamePhase.ROUND_END) {
+            return "Round is over";
         }
     }
 
@@ -157,6 +183,7 @@ export default class Game extends React.Component {
                             game={this.state.game}
                             isClientsPlayersTurn={this.isClientPlayersTurn()}
                             board={this.getClientPlayer().board}
+                            overallScore={this.getClientPlayer().overallScore}
                         />
                         <div className="play-area__right">
                             <CardStacks
@@ -189,11 +216,60 @@ export default class Game extends React.Component {
                             {this.state.game.players.filter(player => player.name !== this.props.playerName).map(player =>
                                 <div className="player-details" key={player.name}>
                                     <span className="player-details__name">{player.name}</span>
+                                    <span>Overall Score: {player.overallScore}</span>
                                     <span>Visible Score: {player.board.visibleScore}</span>
                                     <span>Number of Face Up Cards: {player.board.noOfFaceUpCards}</span>
                                 </div>
                             )}
                         </div>
+                    </div>
+                }
+
+                {
+                    (this.state.game.currentPhase === GamePhase.ROUND_END || this.state.game.currentPhase === GamePhase.GAME_END) &&
+                    <div className="round-end-area">
+                        <h1 className="round-end__message">
+                            {this.state.game.currentPhase === GamePhase.ROUND_END && "Round End"}
+                            {
+                                this.state.game.currentPhase === GamePhase.GAME_END &&
+                                <>
+                                    Game End,&nbsp;
+                                    {this.state.game.players.sort((a, b) => a.overallScore - b.overallScore)[0].name} wins!
+                                </>
+                            }
+                        </h1>
+                        <table className="scores-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Score this round</th>
+                                    <th>Overall Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.game.players.map(player =>
+                                   <tr>
+                                       <td>{player.name}</td>
+                                       <td>{player.board.visibleScore}</td>
+                                       <td>{player.overallScore}</td>
+                                   </tr>
+                                )}
+                            </tbody>
+                        </table>
+                        {
+                            this.state.game.currentPhase === GamePhase.ROUND_END &&
+                            <>
+                                {this.state.playerIsHost && <button className="button button--x-large" onClick={this.startNextRound}>Start Next Round</button>}
+                                {!this.state.playerIsHost && <h1>Waiting for host to start next round...</h1>}
+                            </>
+                        }
+                        {
+                            this.state.game.currentPhase === GamePhase.GAME_END &&
+                            <>
+                                {this.state.playerIsHost && <button className="button button--x-large" onClick={this.endGame}>End Game</button>}
+                                {!this.state.playerIsHost && <h1>Waiting for host to end game...</h1>}
+                            </>
+                        }
                     </div>
                 }
             </>

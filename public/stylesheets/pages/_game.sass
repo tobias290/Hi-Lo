@@ -46,13 +46,33 @@
         flex-direction: column
         justify-content: center
 
-        .player-details
-            align-items: flex-start
-            display: flex
-            flex-direction: column
-            font-size: 1.25rem
-            justify-content: center
-            margin: 1rem 0
+    .player-details
+        align-items: flex-start
+        display: flex
+        flex-direction: column
+        font-size: 1.25rem
+        justify-content: center
+        margin: 1rem 0
 
-            .player-details__name
-                text-decoration: underline
+        .player-details__name
+            text-decoration: underline
+
+.round-end-area
+    align-items: center
+    display: flex
+    flex-direction: column
+    height: calc(100% - 76px)
+    justify-content: space-around
+
+    .round-end__message
+        font-size: 3rem
+
+.scores-table
+    border-collapse: collapse
+    font-size: 1.5rem
+    text-align: center
+    width: 500px
+
+    th, td
+        border: 2px solid white
+        height: 40px

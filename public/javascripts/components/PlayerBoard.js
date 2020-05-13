@@ -121,7 +121,11 @@ export default class PlayerBoard extends React.Component {
                 {
                     this.props.displayScore &&
                     <div className="player-board-info">
-                        <span><strong>Visible Score:</strong> {this.props.board.visibleScore}</span>
+                        <div>
+                            <span><strong>Overall Score:</strong> {this.props.overallScore}</span>
+                            <br />
+                            <span><strong>Visible Score:</strong> {this.props.board.visibleScore}</span>
+                        </div>
                         <span><strong>Number of Face Up Cards:</strong> {this.props.board.noOfFaceUpCards}</span>
                     </div>
                 }
@@ -146,10 +150,12 @@ PlayerBoard.propTypes = {
     isClientsPlayersTurn: PropTypes.bool,
     clientPlayerTurnPhase: PropTypes.number,
     board: PropTypes.object,
+    overallScore: PropTypes.number,
     displayScore: PropTypes.bool,
 }
 
 PlayerBoard.defaultProps = {
     isClientsPlayersTurn: false,
+    overallScore: null,
     displayScore: true,
 }

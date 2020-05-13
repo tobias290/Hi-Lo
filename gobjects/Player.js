@@ -47,6 +47,15 @@ class Player {
     cardInHand = null;
 
     /**
+     * @private
+     *
+     * The overall score of the player.
+     *
+     * @type {number}
+     */
+    overallScore = 0;
+
+    /**
      * Player constructor
      *
      * @param {string} name - Name of the player.
@@ -55,6 +64,16 @@ class Player {
     constructor(name, isHost = false) {
         this.name = name;
         this.isHost = isHost;
+    }
+
+    /**
+     * @public
+     *
+     * Resets a player.
+     */
+    reset() {
+        this.turnPhase = PlayerTurnPhase.PICKING_CARD;
+        this.board.resetBoard();
     }
 
     /**
@@ -123,6 +142,10 @@ class Player {
         this.board.flipCardFaceUp(column, row);
     }
 
+    addVisibleScoreToOverallScore() {
+        this.overallScore += this.board.visibleScore();
+    }
+
     /**
      * Ends the player;s turn by setting their turn phase back to picking card.
      */
@@ -149,6 +172,10 @@ class Player {
 
     get board() {
         return this.board;
+    }
+
+    get overallScore() {
+        return this.overallScore;
     }
 }
 

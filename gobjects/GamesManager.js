@@ -52,6 +52,25 @@ class GamesManager {
     }
 
     /**
+     * @public
+     *
+     * Ends and deletes a game.
+     *
+     * @param {string} code - Game code.
+     *
+     * @returns {boolean}
+     */
+    endGame(code) {
+        let game = this.games.find(game => game.gameCode === code);
+
+        if (game !== undefined) {
+            this.games.splice(this.games.indexOf(game), 1);
+        }
+
+        return game !== undefined;
+    }
+
+    /**
      * @private
      *
      * Lists over all current game and retrieve their game codes.
