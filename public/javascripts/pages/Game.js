@@ -179,12 +179,6 @@ export default class Game extends React.Component {
                 {
                     (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS || this.state.game.currentPhase === GamePhase.PLAYER_TURN) &&
                     <div className="play-area">
-                        <PlayerBoard
-                            game={this.state.game}
-                            isClientsPlayersTurn={this.isClientPlayersTurn()}
-                            board={this.getClientPlayer().board}
-                            overallScore={this.getClientPlayer().overallScore}
-                        />
                         <div className="play-area__right">
                             <CardStacks
                                 gameCode={this.props.gameCode}
@@ -212,6 +206,12 @@ export default class Game extends React.Component {
                                 />
                             </div>
                         </div>
+                        <PlayerBoard
+                            game={this.state.game}
+                            isClientsPlayersTurn={this.isClientPlayersTurn()}
+                            board={this.getClientPlayer().board}
+                            overallScore={this.getClientPlayer().overallScore}
+                        />
                         <div className="play-area__players-score">
                             {this.state.game.players.filter(player => player.name !== this.props.playerName).map(player =>
                                 <div className="player-details" key={player.name}>
