@@ -2,7 +2,12 @@ let express = require("express");
 let router = express.Router();
 
 router.ws("/:gameCode", (ws, req) => {
-    req.app.get("event").on("ws", (event) => ws.emit(event)); // Converts any event emitted into a websocket event
+    if (req.app.get("event").listenerCount("ws") <= 1)
+        req.app.get("event").on("ws", (event) => ws.emit(event)); // Converts any event emitted into a websocket event
+
+    ws.on("open", () => {
+        req.app.get("event").on("ws", (event) => ws.emit(event));
+    })
 
     ws.on("update:game", () => {
         req.app.get("wss").clients.forEach(function each(client) {
@@ -14,6 +19,10 @@ router.ws("/:gameCode", (ws, req) => {
             }
         });
     });
+
+    ws.on("close", () => {
+        req.app.get("event").removeAllListeners("ws");
+    })
 });
 
 module.exports = router;
