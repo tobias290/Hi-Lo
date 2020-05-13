@@ -52,7 +52,7 @@ class PlayerBoard {
         let score = 0;
 
         for (let card of this.flattenCards())
-            if (card.faceUp)
+            if (card.faceUp && card.value !== "empty")
                 score += card.value;
 
         return score;
@@ -69,7 +69,7 @@ class PlayerBoard {
         let count = 0;
 
         for (let card of this.flattenCards())
-            if (card.faceUp)
+            if (card.faceUp && card.value !== "empty")
                 count += 1;
 
         return count;
@@ -92,6 +92,16 @@ class PlayerBoard {
      */
     flipCardFaceUp(column, row) {
         this.cards[column][row].flip(true);
+    }
+
+    /**
+     * Checks to see if a column as all the game cards is so clear that column.
+     */
+    checkForMatchingColumn() {
+        for (let columnIndex in this.cards)
+            if (this.cards[columnIndex].every(card => card.value === this.cards[columnIndex][0].value && card.faceUp))
+                for (let cardIndex in this.cards[columnIndex])
+                    this.cards[columnIndex][cardIndex].value = "empty";
     }
 
     get cards() {

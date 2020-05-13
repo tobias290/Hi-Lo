@@ -4,7 +4,7 @@ class Card {
      *
      * The value of the card.
      *
-     * @type {number | null }
+     * @type {string | number | null }
      */
     value = null;
 

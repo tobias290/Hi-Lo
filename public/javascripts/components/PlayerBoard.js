@@ -128,9 +128,10 @@ export default class PlayerBoard extends React.Component {
                 <div className="player-board">
                     {this.renderCards((card, cardColumn, cardRow) =>
                         <Card
+                            isPlaceholder={card.value === "empty"}
                             key={`${cardColumn}-${cardRow}`}
                             value={card.value}
-                            isInteractable={this.cardsInteractable(cardColumn, cardRow)}
+                            isInteractable={this.cardsInteractable(cardColumn, cardRow) && card.value !== "empty"}
                             onClick={() => this.getCardAction(cardColumn, cardRow)}
                         />
                     )}

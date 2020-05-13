@@ -94,14 +94,13 @@ class Player {
     placeCardOnBoard(column, row) {
         let replacedCard = this.board.replaceCard(this.cardInHand, column, row);
         this.cardInHand = null;
-        this.turnPhase = PlayerTurnPhase.PICKING_CARD;
         return replacedCard;
     }
 
     /**
      * @public
      *
-     * Returns the card in hand the sets it to null.
+     * Returns the card in hand then sets it to null.
      *
      * @returns {Card} - Returns the current card in hand.
      */
@@ -113,10 +112,23 @@ class Player {
     }
 
     /**
+     * @public
+     *
+     * Reveals one of the player's cards.
+     *
+     * @param {number} column - Cards column.
+     * @param {number} row - Cards row.
+     */
+    revealCard(column, row) {
+        this.board.flipCardFaceUp(column, row);
+    }
+
+    /**
      * Ends the player;s turn by setting their turn phase back to picking card.
      */
     endTurn() {
         this.turnPhase = PlayerTurnPhase.PICKING_CARD;
+        this.board.checkForMatchingColumn();
     }
 
     get name() {

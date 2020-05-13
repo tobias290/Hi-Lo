@@ -180,7 +180,7 @@ class Game {
      */
     start() {
         for (let i = 0; i < this.players.length * 12; i++) {
-            this.players[i % this.players.length].dealCard(this.stack.pop());
+            this.players[i % this.players.length].dealCard(new Card(-2));
         }
         this.discard.push(this.stack.pop(), true);
 
@@ -234,6 +234,7 @@ class Game {
     placeCardOnCurrentPlayersBoard(column, row) {
         let replacedCard = this.getCurrentPlayer().placeCardOnBoard(column, row);
         this.discard.push(replacedCard, true);
+        this.getCurrentPlayer().endTurn();
         this.nextPlayersTurn();
     }
 
@@ -255,7 +256,7 @@ class Game {
      * @param {number} row - Cards row.
      */
     flipCurrentsPlayersCard(column, row) {
-        this.getCurrentPlayer().board.flipCardFaceUp(column, row);
+        this.getCurrentPlayer().revealCard(column, row);
         this.getCurrentPlayer().endTurn();
         this.nextPlayersTurn();
     }
