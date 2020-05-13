@@ -180,7 +180,7 @@ class Game {
      */
     start() {
         for (let i = 0; i < this.players.length * 12; i++) {
-            this.players[i % this.players.length].dealCard(new Card(-2));
+            this.players[i % this.players.length].dealCard(this.stack.pop());
         }
         this.discard.push(this.stack.pop(), true);
 
