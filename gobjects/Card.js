@@ -21,9 +21,11 @@ class Card {
      * Card constructor.
      *
      * @param {number} value - Card's value.
+     * @param {boolean} faceUp - True if the card is face up, false if face down.
      */
-    constructor(value) {
+    constructor(value, faceUp = false) {
         this.value = value;
+        this.faceUp = faceUp;
     }
 
     /**

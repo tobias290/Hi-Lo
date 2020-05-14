@@ -142,16 +142,25 @@ class Player {
         this.board.flipCardFaceUp(column, row);
     }
 
+    /**
+     * @public
+     *
+     * Adds the players score from this round to their overall score.
+     */
     addVisibleScoreToOverallScore() {
         this.overallScore += this.board.visibleScore();
     }
 
     /**
-     * Ends the player;s turn by setting their turn phase back to picking card.
+     * @public
+     *
+     * Ends the player's turn by setting their turn phase back to picking card.
+     *
+     * @returns {Array<Card> | null} - Returns the cleared cards so they can be added to the discard, or null if no column was cleared.
      */
     endTurn() {
         this.turnPhase = PlayerTurnPhase.PICKING_CARD;
-        this.board.checkForMatchingColumn();
+        return this.board.checkForMatchingColumn();
     }
 
     get name() {

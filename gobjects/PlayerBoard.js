@@ -1,3 +1,5 @@
+const Card = require("./Card");
+
 class PlayerBoard {
     /**
      * @private
@@ -105,12 +107,21 @@ class PlayerBoard {
 
     /**
      * Checks to see if a column as all the game cards is so clear that column.
+     *
+     * @returns {Array<Card> | null} - Returns the cleared cards so they can be added to the discard, or null if no column was cleared
      */
     checkForMatchingColumn() {
-        for (let columnIndex in this.cards)
-            if (this.cards[columnIndex].every(card => card.value === this.cards[columnIndex][0].value && card.faceUp))
-                for (let cardIndex in this.cards[columnIndex])
+        let clearedCards = [];
+
+        for (let columnIndex in this.cards) {
+            if (this.cards[columnIndex].every(card => card.value === this.cards[columnIndex][0].value && card.faceUp)) {
+                for (let cardIndex in this.cards[columnIndex]) {
+                    clearedCards.push(new Card(this.cards[columnIndex][cardIndex].value, true));
                     this.cards[columnIndex][cardIndex].value = "empty";
+                }
+            }
+        }
+        return clearedCards.length !== 0 ? clearedCards : null;
     }
 
     get cards() {

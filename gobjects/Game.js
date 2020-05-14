@@ -234,7 +234,6 @@ class Game {
     placeCardOnCurrentPlayersBoard(column, row) {
         let replacedCard = this.getCurrentPlayer().placeCardOnBoard(column, row);
         this.discard.push(replacedCard, true);
-        this.getCurrentPlayer().endTurn();
         this.nextPlayersTurn();
     }
 
@@ -257,7 +256,6 @@ class Game {
      */
     flipCurrentsPlayersCard(column, row) {
         this.getCurrentPlayer().revealCard(column, row);
-        this.getCurrentPlayer().endTurn();
         this.nextPlayersTurn();
     }
 
@@ -276,6 +274,11 @@ class Game {
      * Sets the current player to be the next player after the current.
      */
     nextPlayersTurn() {
+        let cardsFromClearedRow = this.getCurrentPlayer().endTurn();
+
+        if (cardsFromClearedRow !== null)
+            cardsFromClearedRow.forEach(card => this.discard.push(card, true));
+
         if (this.currentPlayerTurnIndex >= this.players.length - 1) {
             this.currentPlayerTurnIndex = 0;
         } else {
