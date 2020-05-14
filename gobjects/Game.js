@@ -154,6 +154,19 @@ class Game {
     /**
      * @public
      *
+     * Checks to see if the player's name is not already a name of an existing player.
+     *
+     * @param {string} playerName - Name of the player.
+     *
+     * @returns {boolean} - Returns true if that name is allowed, false if not
+     */
+    isPlayerNameFree(playerName) {
+        return this.players.every(player => player.name !== playerName);
+    }
+
+    /**
+     * @public
+     *
      * Adds a new player to the game.
      *
      * @param {Player} player - New player to add to game.

@@ -18,6 +18,8 @@ router.get("/join", (req, res) => {
             errorMessage = "Cannot join this game because it has already started";
         } else if (game.maxPlayerLimitReached()) {
             errorMessage = "Cannot join this game because it already has the maximum amount of players";
+        } else if (!game.isPlayerNameFree(req.query["player"])) {
+           errorMessage = "Cannot join game, that name is already in use"
         } else {
             req.app.get("gamesManager").findGame(req.query["code"]).addPlayer(new Player(req.query["player"]));
             req.app.get("event").emit("ws", "update:game");
