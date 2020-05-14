@@ -343,6 +343,13 @@ class Game {
                 this.currentPlayerTurnIndex = this.players.indexOf(player);
 
                 this.players.forEach(player => player.addVisibleScoreToOverallScore());
+
+                let minScore = Math.min.apply(Math, this.players.map(player => player.board.visibleScore()));
+
+                // If the player doesn't have the lowest score, double it
+                if (player.board.visibleScore() > minScore)
+                    player.addVisibleScoreToOverallScore();
+
                 return true;
             }
         }
