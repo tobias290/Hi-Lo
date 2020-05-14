@@ -80,7 +80,7 @@ class PlayerBoard {
         let count = 0;
 
         for (let card of this.flattenCards())
-            if (card.faceUp && card.value !== "empty")
+            if (card.faceUp || card.value === "empty")
                 count += 1;
 
         return count;
