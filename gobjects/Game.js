@@ -33,6 +33,15 @@ class Game {
     /**
      * @private
      *
+     * Counts the number of rounds.
+     *
+     * @type {number}
+     */
+    currentRoundNumber = 0;
+
+    /**
+     * @private
+     *
      * Represents the stack of cards available.
      *
      * @type {CardStack}
@@ -223,8 +232,16 @@ class Game {
         if (this.players[this.currentPlayerTurnIndex].board.noOfFaceUpCards() === 2)
             this.nextPlayersTurn();
 
-        if (this.players.every(player => player.board.noOfFaceUpCards() === 2))
+        if (this.players.every(player => player.board.noOfFaceUpCards() === 2)) {
             this.currentPhase = GamePhase.PLAYER_TURN;
+
+            if (this.currentRoundNumber > 1) {
+                // Calculates which player has the highest visible score, that player starts the first round
+                this.currentPlayerTurnIndex = this.players.indexOf(this.players.sort(
+                    (a, b) => b.board.visibleScore() - a.board.visibleScore())[0]
+                );
+            }
+        }
     }
 
     /**
@@ -310,7 +327,7 @@ class Game {
      */
     startNewRound() {
         this.players.forEach(player => player.reset());
-
+        this.currentRoundNumber += 1;
         this.start();
     }
 
