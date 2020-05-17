@@ -4,6 +4,7 @@
     "private": true,
     "homepage": ".",
     "scripts": {
+        "start": "node app.js",
         "start-server": "node app.js",
         "start-frontend": "node scripts/start.js",
         "build-frontend": "node scripts/build.js",
