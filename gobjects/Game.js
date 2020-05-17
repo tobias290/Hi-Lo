@@ -31,6 +31,13 @@ class Game {
     currentPlayerTurnIndex = 0;
 
     /**
+     * Tracks the index of the player that ended the round so we know when to finish the final round.
+     *
+     * @type {null|number}
+     */
+    endingPlayerIndex = null;
+
+    /**
      * @private
      *
      * Counts the number of rounds.
@@ -309,14 +316,14 @@ class Game {
         if (cardsFromClearedRow !== null)
             cardsFromClearedRow.forEach(card => this.discard.push(card, true));
 
+        if(this.checkRoundEnd())
+            this.checkGameEnd();
+
         if (this.currentPlayerTurnIndex >= this.players.length - 1) {
             this.currentPlayerTurnIndex = 0;
         } else {
             this.currentPlayerTurnIndex += 1;
         }
-
-        if(this.checkRoundEnd())
-            this.checkGameEnd();
     }
 
 
@@ -339,18 +346,24 @@ class Game {
     checkRoundEnd() {
         for (let player of this.players) {
             if (player.board.flattenCards().every(card => card.faceUp)) {
-                this.currentPhase = GamePhase.ROUND_END;
-                this.currentPlayerTurnIndex = this.players.indexOf(player);
+                if (this.currentPhase === GamePhase.PLAYER_TURN) {
+                    this.currentPhase = GamePhase.FINAL_ROUND;
+                    this.endingPlayerIndex = this.currentPlayerTurnIndex;
+                    return false;
+                } else if (this.currentPhase === GamePhase.FINAL_ROUND && this.endingPlayerIndex === this.currentPlayerTurnIndex - 1) {
+                    this.currentPhase = GamePhase.ROUND_END;
+                    this.currentPlayerTurnIndex = this.players.indexOf(player);
 
-                this.players.forEach(player => player.addVisibleScoreToOverallScore());
+                    this.players.forEach(player => player.addVisibleScoreToOverallScore());
 
-                let minScore = Math.min.apply(Math, this.players.map(player => player.board.visibleScore()));
+                    let minScore = Math.min.apply(Math, this.players.map(player => player.board.overallScore()));
 
-                // If the player doesn't have the lowest score, double it
-                if (player.board.visibleScore() > minScore)
-                    player.addVisibleScoreToOverallScore();
+                    // If the player doesn't have the lowest score, double it
+                    if (player.board.visibleScore() > minScore)
+                        player.addVisibleScoreToOverallScore();
 
-                return true;
+                    return true;
+                }
             }
         }
         return false;

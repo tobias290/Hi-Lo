@@ -111,6 +111,8 @@ export default class Game extends React.Component {
             }
         } else if (this.state.game.currentPhase === GamePhase.PLAYER_TURN && !this.isClientPlayersTurn()) {
             return `It is ${this.state.game.players[this.state.game.currentPlayerTurnIndex].name}'s turn`;
+        } else if (this.state.game.currentPhase === GamePhase.FINAL_ROUND) {
+            return "Final round"
         } else if (this.state.game.currentPhase === GamePhase.ROUND_END) {
             return "Round is over";
         }
@@ -175,18 +177,18 @@ export default class Game extends React.Component {
                 }
 
                 {
-                    (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS || this.state.game.currentPhase === GamePhase.PLAYER_TURN) &&
+                    (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS || this.state.game.currentPhase === GamePhase.PLAYER_TURN || this.state.game.currentPhase === GamePhase.FINAL_ROUND) &&
                     <div className="play-area">
                         <div className="play-area__right">
                             <CardStacks
                                 gameCode={this.props.gameCode}
                                 clientPlayerPickCard={
-                                    this.state.game.currentPhase === GamePhase.PLAYER_TURN &&
+                                    (this.state.game.currentPhase === GamePhase.PLAYER_TURN || this.state.game.currentPhase === GamePhase.FINAL_ROUND) &&
                                     this.getClientPlayer().turnPhase === PlayerTurnPhase.PICKING_CARD &&
                                     this.isClientPlayersTurn()
                                 }
                                 clientPlayerDiscardCard={
-                                    this.state.game.currentPhase === GamePhase.PLAYER_TURN &&
+                                    (this.state.game.currentPhase === GamePhase.PLAYER_TURN || this.state.game.currentPhase === GamePhase.FINAL_ROUND) &&
                                     this.getClientPlayer().turnPhase === PlayerTurnPhase.PLACING_CARD &&
                                     this.isClientPlayersTurn()
                                 }

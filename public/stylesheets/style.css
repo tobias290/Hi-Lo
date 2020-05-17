@@ -236,8 +236,7 @@ body {
   align-items: center;
   display: flex;
   height: calc(100% - 76px);
-  justify-content: space-around;
-  padding: 0.25rem; }
+  justify-content: space-around; }
   @media only screen and (max-width: 1024px) {
     .play-area .play-area__right {
       width: 50% !important; }
@@ -248,7 +247,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    height: calc(100% - 10px);
     text-align: center;
     width: 60%; }
   .play-area .play-area__players-score {
