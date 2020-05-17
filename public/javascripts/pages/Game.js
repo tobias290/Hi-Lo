@@ -199,6 +199,7 @@ export default class Game extends React.Component {
                                 isClientsPlayersTurn={this.isClientPlayersTurn()}
                                 board={this.getClientPlayer().board}
                                 overallScore={this.getClientPlayer().overallScore}
+                                displayMessage={true}
                             />
                         </div>
                         <div className="play-area__other-players-board">
@@ -206,7 +207,9 @@ export default class Game extends React.Component {
                                 <PlayerBoard
                                     game={this.state.game}
                                     board={player.board}
-                                    displayScore={true}
+                                    displayMessage={true}
+                                    customDisplayMessage={<strong>{player.name}</strong>}
+                                    centerMessage={true}
                                     small={true}
                                 />
                             )}

@@ -119,14 +119,20 @@ export default class PlayerBoard extends React.Component {
             // NOTE/FIXME: Pretty sure it's looping over the cards the wrong way
             <div className={this.props.small ? "small" : ""}>
                 {
-                    this.props.displayScore &&
-                    <div className="player-board-info">
+                    (this.props.displayMessage && this.props.customDisplayMessage === "") &&
+                    <div className={`player-board-info ${this.props.centerMessage ? "player-board-info__center" : ""}`}>
                         <div>
                             <span><strong>Overall Score:</strong> {this.props.overallScore}</span>
                             <br />
                             <span><strong>Visible Score:</strong> {this.props.board.visibleScore}</span>
                         </div>
                         <span><strong>Number of Face Up Cards:</strong> {this.props.board.noOfFaceUpCards}</span>
+                    </div>
+                }
+                {
+                    (this.props.displayMessage && this.props.customDisplayMessage !== "") &&
+                    <div className={`player-board-info ${this.props.centerMessage ? "player-board-info__center" : ""}`}>
+                        {this.props.customDisplayMessage}
                     </div>
                 }
                 <div className="player-board">
@@ -147,17 +153,28 @@ export default class PlayerBoard extends React.Component {
 
 PlayerBoard.propTypes = {
     game: PropTypes.object,
+    board: PropTypes.object,
+
     isClientsPlayersTurn: PropTypes.bool,
     clientPlayerTurnPhase: PropTypes.number,
-    board: PropTypes.object,
+
     overallScore: PropTypes.number,
-    displayScore: PropTypes.bool,
+
+    displayMessage: PropTypes.bool,
+    customDisplayMessage: PropTypes.string,
+    centerMessage: PropTypes.bool,
+
     small: PropTypes.bool,
 }
 
 PlayerBoard.defaultProps = {
     isClientsPlayersTurn: false,
+
     overallScore: null,
-    displayScore: true,
+
+    displayMessage: false,
+    customDisplayMessage: "",
+    centerMessage: false,
+
     small: false,
 }
