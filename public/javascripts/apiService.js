@@ -1,5 +1,6 @@
 export default class ApiService {
-    static BASE_URL = "http://192.168.1.123:8000/game";
+    static BASE_URL = "http://192.168.1.123:8000/game"; // For Development
+    //static BASE_URL = window.location.origin; // For Building
 
     static URLS = {
         hostGame: ApiService.BASE_URL + "/host",
