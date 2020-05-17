@@ -93,7 +93,7 @@ export default class Game extends React.Component {
      * @returns {string|null}
      */
     getGameMessage() {
-        let message;
+        let message = "";
 
         if (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && this.isClientPlayersTurn()) {
             message = "Pick two starting cards";
