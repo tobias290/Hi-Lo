@@ -2,9 +2,9 @@
 :root {
   font-size: 16px; }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
   :root {
-    font-size: 14px !important; } }
+    font-size: 12px !important; } }
 * {
   color: white;
   font-family: "Wellfleet", cursive; }
@@ -98,6 +98,9 @@ body {
   cursor: default;
   height: 175px;
   user-select: none;
+  max-font-size: 1rem;
+  max-height: 175px;
+  max-width: 100px;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -114,9 +117,9 @@ body {
     justify-content: center;
     position: relative; }
     .card.card--face > h1 {
-      font-size: 4rem; }
+      font-size: 4em; }
     .card.card--face > span {
-      font-size: 1.5rem;
+      font-size: 1.5em;
       position: absolute; }
       .card.card--face > span:first-child {
         left: 10px;
@@ -132,7 +135,7 @@ body {
     justify-content: center;
     flex-direction: column; }
     .card.card--back > span {
-      font-size: 2rem;
+      font-size: 2em;
       position: absolute;
       width: fit-content; }
       .card.card--back > span:first-child {
@@ -166,8 +169,8 @@ body {
     width: 100%; }
 
 .small {
-  height: 400px;
-  transform: scale(0.5);
+  height: 600px;
+  transform: scale(0.75);
   font-size: 2rem; }
 
 .player-board-info {
@@ -233,13 +236,19 @@ body {
   align-items: center;
   display: flex;
   height: calc(100% - 76px);
-  justify-content: space-around; }
+  justify-content: space-around;
+  padding: 0.25rem; }
+  @media only screen and (max-width: 1024px) {
+    .play-area .play-area__right {
+      width: 50% !important; }
+    .play-area .play-area__other-players-board {
+      width: 50% !important; } }
   .play-area .play-area__right {
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    height: calc(100% - 76px);
+    justify-content: space-between;
+    height: 100%;
     text-align: center;
     width: 60%; }
   .play-area .play-area__players-score {
@@ -251,7 +260,7 @@ body {
     align-items: center;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 76px);
+    height: 100%;
     justify-content: flex-start;
     overflow: auto;
     width: 30%; }

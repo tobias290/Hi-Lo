@@ -2,6 +2,27 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default class Card extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.card = React.createRef();
+    }
+
+    componentDidMount() {
+        let onResize = () => {
+            let windowHeight = window.innerHeight;
+            let windowWidth = window.innerWidth
+            let windowSize = windowHeight < windowWidth ? windowHeight : windowWidth;
+
+            this.card.current.style.height = `${windowSize * 0.175}px`;
+            this.card.current.style.width = `${windowSize * 0.1}px`;
+            this.card.current.style.fontSize = `${windowSize * 0.001}rem`;
+        };
+
+        window.addEventListener("resize", onResize);
+        onResize();
+    }
+
     /**
      * @private
      *
@@ -41,7 +62,7 @@ export default class Card extends React.Component {
 
     renderPlaceholder() {
         return (
-            <div className={`card card--placeholder ${this.props.isInteractable ? "card--hover-effect" : ""}`} onClick={this.props.isInteractable ? this.props.onClick : () => {}}>
+            <div ref={this.card} className={`card card--placeholder ${this.props.isInteractable ? "card--hover-effect" : ""}`} onClick={this.props.isInteractable ? this.props.onClick : () => {}}>
                 {this.props.value}
             </div>
         )
@@ -49,7 +70,7 @@ export default class Card extends React.Component {
 
     renderBackSide() {
         return (
-            <div className={`card card--back ${this.props.isInteractable ? "card--hover-effect" : ""}`} onClick={this.props.isInteractable ? this.props.onClick : () => {}}>
+            <div ref={this.card} className={`card card--back ${this.props.isInteractable ? "card--hover-effect" : ""}`} onClick={this.props.isInteractable ? this.props.onClick : () => {}}>
                 <span>Hi-Lo</span>
                 <span>Hi-Lo</span>
             </div>
@@ -58,7 +79,7 @@ export default class Card extends React.Component {
 
     renderFaceSide() {
         return (
-            <div className={`card card--face ${this.props.isInteractable ? "card--hover-effect" : ""}`} onClick={this.props.isInteractable ? this.props.onClick : () => {}} style={{background: this.getCardColor(this.props.value)}}>
+            <div ref={this.card} className={`card card--face ${this.props.isInteractable ? "card--hover-effect" : ""}`} onClick={this.props.isInteractable ? this.props.onClick : () => {}} style={{background: this.getCardColor(this.props.value)}}>
                 <span className={this.underlineCard() ? "card--underline-value" : ""}>{this.props.value}</span>
                 <h1 className={this.underlineCard() ? "card--underline-value" : ""}>{this.props.value}</h1>
                 <span className={this.underlineCard() ? "card--underline-value" : ""}>{this.props.value}</span>

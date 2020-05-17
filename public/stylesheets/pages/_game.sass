@@ -18,7 +18,6 @@
         flex-direction: column
         justify-content: space-around
         height: 100%
-
         width: 175px
 
         .game-top-bar__detail
@@ -31,13 +30,21 @@
     display: flex
     height: calc(100% - 76px)
     justify-content: space-around
+    padding: .25rem
+
+    @include mobile-query($breakpoint)
+        .play-area__right
+            width: 50% !important
+
+        .play-area__other-players-board
+            width: 50% !important
 
     .play-area__right
         align-items: center
         display: flex
         flex-direction: column
-        justify-content: space-around
-        height: calc(100% - 76px)
+        justify-content: space-between
+        height: 100%
         text-align: center
         width: 60%
 
@@ -51,7 +58,7 @@
         align-items: center
         display: flex
         flex-direction: column
-        height: calc(100% - 76px)
+        height: 100%
         justify-content: flex-start
         overflow: auto
         width: 30%
