@@ -1,9 +1,9 @@
 export default class ApiService {
-    // static BASE_URL = "http://192.168.1.123:8000/game"; // For Development
-    // static WS_BASE_URL = "ws://192.168.1.123:8000/ws";
+    static BASE_URL = "http://192.168.1.123:8000/game"; // For Development
+    static WS_BASE_URL = "ws://192.168.1.123:8000/ws";
 
-    static BASE_URL = `${window.location.origin}/game`; // For Building
-    static WS_BASE_URL = `wss://${window.location.hostname}/ws`;
+    // static BASE_URL = `${window.location.origin}/game`; // For Building
+    // static WS_BASE_URL = `wss://${window.location.hostname}/ws`;
 
     static URLS = {
         hostGame: ApiService.BASE_URL + "/host",

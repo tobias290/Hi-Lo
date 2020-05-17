@@ -335,6 +335,8 @@ class Game {
     startNewRound() {
         this.players.forEach(player => player.reset());
         this.currentRoundNumber += 1;
+        this.stack.resetStack(true);
+        this.discard.clear();
         this.start();
     }
 
