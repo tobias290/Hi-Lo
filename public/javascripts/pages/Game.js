@@ -208,7 +208,7 @@ export default class Game extends React.Component {
                                     game={this.state.game}
                                     board={player.board}
                                     displayMessage={true}
-                                    customDisplayMessage={<strong>{player.name}</strong>}
+                                    customDisplayMessage={<h3><strong>{player.name}</strong></h3>}
                                     centerMessage={true}
                                     small={true}
                                 />
