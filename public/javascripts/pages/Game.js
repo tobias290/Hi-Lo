@@ -134,19 +134,6 @@ export default class Game extends React.Component {
     /**
      * @private
      *
-     * Gets the details for the left of clients player.
-     *
-     * @returns {*} - Returns the player.
-     */
-    getClientsLeftPlayer() {
-        let clientPlayerIndex = this.state.game.players.indexOf(this.getClientPlayer());
-
-        return this.state.game.players[clientPlayerIndex >= this.state.game.players.length - 1 ? 0 : clientPlayerIndex + 1];
-    }
-
-    /**
-     * @private
-     *
      * @returns {boolean} - Returns true if it is the clients turn.
      */
     isClientPlayersTurn() {
