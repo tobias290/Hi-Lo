@@ -10,7 +10,7 @@ router.get("/host", (req, res) => {
 });
 
 router.get("/join", (req, res) => {
-    let game = req.app.get("gamesManager").findGame(req.query["code"]);
+    let game = req.app.get("gamesManager").findGame(req.query["gameCode"]);
     let errorMessage;
 
     if (game !== undefined) {
@@ -21,8 +21,8 @@ router.get("/join", (req, res) => {
         } else if (!game.isPlayerNameFree(req.query["player"])) {
            errorMessage = "Cannot join game, that name is already in use"
         } else {
-            req.app.get("gamesManager").findGame(req.query["code"]).addPlayer(new Player(req.query["player"]));
-            req.app.get("event").emit("ws", "update:game");
+            req.app.get("gamesManager").findGame(req.query["gameCode"]).addPlayer(new Player(req.query["player"]));
+            req.app.get("event").emit("ws", "update:game", req.query["gameCode"]);
         }
     } else {
         errorMessage = "Game does not exist, try a different game code";
@@ -32,7 +32,7 @@ router.get("/join", (req, res) => {
         success: game !== undefined && errorMessage === undefined,
         error: errorMessage,
         player_name: req.query["player"],
-        game_code: req.query["code"],
+        game_code: req.query["gameCode"],
     });
 });
 
@@ -49,7 +49,7 @@ router.get("/:gameCode/start", (req, res) => {
     if (game !== undefined) {
         if (game.canStartGame()) {
             game.start();
-            req.app.get("event").emit("ws", "update:game");
+            req.app.get("event").emit("ws", "update:game", req.params["gameCode"]);
         } else {
             errorMessage = "Cannot start game, need at least two players";
         }
@@ -65,7 +65,7 @@ router.get("/:gameCode/pick-starting-card", (req, res) => {
 
     if (game !== undefined) {
         game.pickCurrentPlayersStartingCard(req.query["column"], req.query["row"]);
-        req.app.get("event").emit("ws", "update:game");
+        req.app.get("event").emit("ws", "update:game", req.params["gameCode"]);
     }
 
     res.json(game !== undefined ? {success: true} : {success: false, error: "Game does not exist"});
@@ -76,7 +76,7 @@ router.get("/:gameCode/turn-pick-card", (req, res) => {
 
     if (game !== undefined) {
         game.pickCurrentPlayersCard(req.query["deck"] === "draw");
-        req.app.get("event").emit("ws", "update:game");
+        req.app.get("event").emit("ws", "update:game", req.params["gameCode"]);
     }
 
     res.json(game !== undefined ? {success: true} : {success: false, error: "Game does not exist"});
@@ -90,7 +90,7 @@ router.get("/:gameCode/turn-place-card", (req, res) => {
             game.placeCurrentPlayersCardOnDiscard();
         else
             game.placeCardOnCurrentPlayersBoard(req.query["column"], req.query["row"]);
-        req.app.get("event").emit("ws", "update:game");
+        req.app.get("event").emit("ws", "update:game", req.params["gameCode"]);
     }
 
     res.json(game !== undefined ? {success: true} : {success: false, error: "Game does not exist"});
@@ -101,7 +101,7 @@ router.get("/:gameCode/turn-reveal-card", (req, res) => {
 
     if (game !== undefined) {
         game.flipCurrentsPlayersCard(req.query["column"], req.query["row"]);
-        req.app.get("event").emit("ws", "update:game");
+        req.app.get("event").emit("ws", "update:game", req.params["gameCode"]);
     }
 
     res.json(game !== undefined ? {success: true} : {success: false, error: "Game does not exist"});
@@ -112,7 +112,7 @@ router.get("/:gameCode/start-next-round", (req, res) => {
 
     if (game !== undefined) {
         game.startNewRound();
-        req.app.get("event").emit("ws", "update:game");
+        req.app.get("event").emit("ws", "update:game", req.params["gameCode"]);
     }
 
     res.json(game !== undefined ? {success: true} : {success: false, error: "Game does not exist"});
@@ -120,7 +120,7 @@ router.get("/:gameCode/start-next-round", (req, res) => {
 
 router.get("/:gameCode/end-game", (req, res) => {
     let success = req.app.get("gamesManager").endGame(req.params["gameCode"]);
-    req.app.get("event").emit("ws", "update:game");
+    req.app.get("event").emit("ws", "update:game", req.params["gameCode"]);
 
     res.json(success ? {success: true} : {success: false, error: "Game does not exist"});
 });

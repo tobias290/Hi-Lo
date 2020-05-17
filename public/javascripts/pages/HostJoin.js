@@ -44,7 +44,7 @@ export default class HostJoin extends React.Component {
         this.setState({failedToJoinGame: false}); // Reset errors
 
         ApiService
-            .get(ApiService.URLS.joinGame, {player: this.joinPlayerNameInput.current.value, code: this.joinGameCode.current.value.toUpperCase()}) // TODO: Fill  in
+            .get(ApiService.URLS.joinGame, {player: this.joinPlayerNameInput.current.value, gameCode: this.joinGameCode.current.value.toUpperCase()}) // TODO: Fill  in
             .then(resp => {
                 if (resp.success)
                     this.props.joinGame(resp.player_name, resp.game_code);

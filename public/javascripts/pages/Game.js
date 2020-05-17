@@ -32,12 +32,10 @@ export default class Game extends React.Component {
         this.ws.addEventListener("message",  (event) => {
             let data = JSON.parse(event.data);
 
-            if (data.event === "update:game" && data.game !== undefined) {
-                console.log("Updating game state");
+            if (data.event === `update:game:${this.props.gameCode}` && data.game !== undefined)
                 this.setState({game: data.game});
-            } else if (data.event === "update:game" && data.game === undefined) {
+            else if (data.event === `update:game:${this.props.gameCode}` && data.game === undefined)
                 window.location.reload(true);
-            }
         });
     }
 
