@@ -117,7 +117,7 @@ export default class PlayerBoard extends React.Component {
     render() {
         return (
             // NOTE/FIXME: Pretty sure it's looping over the cards the wrong way
-            <div>
+            <div className={this.props.small ? "small" : ""}>
                 {
                     this.props.displayScore &&
                     <div className="player-board-info">
@@ -152,10 +152,12 @@ PlayerBoard.propTypes = {
     board: PropTypes.object,
     overallScore: PropTypes.number,
     displayScore: PropTypes.bool,
+    small: PropTypes.bool,
 }
 
 PlayerBoard.defaultProps = {
     isClientsPlayersTurn: false,
     overallScore: null,
     displayScore: true,
+    small: false,
 }

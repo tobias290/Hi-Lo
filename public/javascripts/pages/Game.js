@@ -158,9 +158,9 @@ export default class Game extends React.Component {
                         {this.getGameMessage()}
                     </div>
                     <div className="game-top-bar__details">
-                       <span className="game-top-bar__detail"><strong>Player Name:</strong> <span>{this.props.playerName}</span></span>
-                       <span className="game-top-bar__detail"><strong>Game Code:</strong> {this.props.gameCode}</span>
-                       <span className="game-top-bar__detail"><strong>No. of Players:</strong> {this.state.game.players.length}/8</span>
+                        <span className="game-top-bar__detail"><strong>Player Name:</strong> <span>{this.props.playerName}</span></span>
+                        <span className="game-top-bar__detail"><strong>Game Code:</strong> {this.props.gameCode}</span>
+                        <span className="game-top-bar__detail"><strong>No. of Players:</strong> {this.state.game.players.length}/8</span>
                     </div>
                 </div>
 
@@ -194,30 +194,21 @@ export default class Game extends React.Component {
                                 stack={this.state.game.stack.stack}
                                 discard={this.state.game.discard.stack}
                             />
-                            <div style={{transform: "scale(0.5)", height: "500px", width: "462px"}}>
-                                <h1 className="header-no-margin">Player to your left cards</h1>
-                                <br />
+                            <PlayerBoard
+                                game={this.state.game}
+                                isClientsPlayersTurn={this.isClientPlayersTurn()}
+                                board={this.getClientPlayer().board}
+                                overallScore={this.getClientPlayer().overallScore}
+                            />
+                        </div>
+                        <div className="play-area__other-players-board">
+                            {this.state.game.players.filter(player => player.name !== this.getClientPlayer().name).map(player =>
                                 <PlayerBoard
                                     game={this.state.game}
-                                    board={this.getClientsLeftPlayer().board}
+                                    board={player.board}
                                     displayScore={false}
+                                    small={true}
                                 />
-                            </div>
-                        </div>
-                        <PlayerBoard
-                            game={this.state.game}
-                            isClientsPlayersTurn={this.isClientPlayersTurn()}
-                            board={this.getClientPlayer().board}
-                            overallScore={this.getClientPlayer().overallScore}
-                        />
-                        <div className="play-area__players-score">
-                            {this.state.game.players.filter(player => player.name !== this.props.playerName).map(player =>
-                                <div className="player-details" key={player.name}>
-                                    <span className="player-details__name">{player.name}</span>
-                                    <span>Overall Score: {player.overallScore}</span>
-                                    <span>Visible Score: {player.board.visibleScore}</span>
-                                    <span>Number of Face Up Cards: {player.board.noOfFaceUpCards}</span>
-                                </div>
                             )}
                         </div>
                     </div>
@@ -246,11 +237,11 @@ export default class Game extends React.Component {
                             </thead>
                             <tbody>
                                 {this.state.game.players.map(player =>
-                                   <tr>
-                                       <td>{player.name}</td>
-                                       <td>{player.board.visibleScore}</td>
-                                       <td>{player.overallScore}</td>
-                                   </tr>
+                                    <tr>
+                                        <td>{player.name}</td>
+                                        <td>{player.board.visibleScore}</td>
+                                        <td>{player.overallScore}</td>
+                                    </tr>
                                 )}
                             </tbody>
                         </table>

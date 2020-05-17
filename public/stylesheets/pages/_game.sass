@@ -36,9 +36,10 @@
         align-items: center
         display: flex
         flex-direction: column
-        justify-content: center
-        height: 600px
+        justify-content: space-around
+        height: calc(100% - 76px)
         text-align: center
+        width: 100%
 
     .play-area__players-score
         align-items: center
@@ -46,16 +47,15 @@
         flex-direction: column
         justify-content: center
 
-    .player-details
-        align-items: flex-start
+    .play-area__other-players-board
+        align-items: center
         display: flex
         flex-direction: column
-        font-size: 1.25rem
-        justify-content: center
-        margin: 1rem 0
+        height: calc(100% - 76px)
+        justify-content: flex-start
+        overflow: auto
+        width: 100%
 
-        .player-details__name
-            text-decoration: underline
 
 .round-end-area
     align-items: center
