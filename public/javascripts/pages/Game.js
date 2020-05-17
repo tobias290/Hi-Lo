@@ -27,7 +27,7 @@ export default class Game extends React.Component {
     componentDidMount() {
         this.updateGameState();
 
-        this.ws = new WebSocket(`ws://192.168.1.123:8000/ws/${this.props.gameCode}`);
+        this.ws = new WebSocket(ApiService.WS_URLS.game(this.props.gameCode));
 
         this.ws.addEventListener("message",  (event) => {
             let data = JSON.parse(event.data);

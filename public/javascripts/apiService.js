@@ -1,6 +1,9 @@
 export default class ApiService {
-    static BASE_URL = "http://192.168.1.123:8000/game"; // For Development
-    //static BASE_URL = `${window.location.origin}/game`; // For Building
+    //static BASE_URL = "http://192.168.1.123:8000/game"; // For Development
+    //static WS_BASE_URL = "ws://192.168.1.123:8000/ws";
+
+    static BASE_URL = `${window.location.origin}/game`; // For Building
+    static WS_BASE_URL = `wss://${window.location.hostname}/ws`;
 
     static URLS = {
         hostGame: ApiService.BASE_URL + "/host",
@@ -14,6 +17,10 @@ export default class ApiService {
         startNextRound: (gameCode) => ApiService.BASE_URL + `/${gameCode}/start-next-round`,
         endGame: (gameCode) => ApiService.BASE_URL + `/${gameCode}/end-game`,
     };
+
+    static WS_URLS = {
+        game: (gameCode) => `${ApiService.WS_BASE_URL}/${gameCode}`,
+    }
 
     static get(url, queryParams = {}) {
         url += "?";
