@@ -2,6 +2,7 @@
     "name": "skyjo",
     "version": "0.0.1",
     "private": true,
+    "homepage": ".",
     "scripts": {
         "start": "concurrently  \"node ./bin/www\"\" \"node scripts/start.js\"",
         "start-server": "node app.js",
