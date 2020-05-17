@@ -132,7 +132,7 @@ class PlayerBoard {
         let clearedCards = [];
 
         for (let columnIndex in this.cards) {
-            if (this.cards[columnIndex].every(card => card.value === this.cards[columnIndex][0].value && card.faceUp)) {
+            if (this.cards[columnIndex].every(card => card.value !== "empty" && card.value === this.cards[columnIndex][0].value && card.faceUp)) {
                 for (let cardIndex in this.cards[columnIndex]) {
                     clearedCards.push(new Card(this.cards[columnIndex][cardIndex].value, true));
                     this.cards[columnIndex][cardIndex].value = "empty";
