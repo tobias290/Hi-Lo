@@ -35,4 +35,4 @@ app.use("/", indexRouter);
 app.use("/game", apiRouter);
 app.use("/ws", wsRouter);
 
-app.listen(8000);
+app.listen(process.env.PORT || 8000);
