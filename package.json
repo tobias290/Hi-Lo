@@ -4,7 +4,6 @@
     "private": true,
     "homepage": ".",
     "scripts": {
-        "start": "concurrently  \"node ./bin/www\"\" \"node scripts/start.js\"",
         "start-server": "node app.js",
         "start-frontend": "node scripts/start.js",
         "build-frontend": "node scripts/build.js",
