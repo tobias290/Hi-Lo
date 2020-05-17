@@ -200,7 +200,7 @@ export default class Game extends React.Component {
                                     game={this.state.game}
                                     board={player.board}
                                     displayMessage={true}
-                                    customDisplayMessage={<h3>{player.name} {this.state.game.players[i].name === player.name ? "(Their Turn)" : ""}</h3>}
+                                    customDisplayMessage={<h3>{player.name} {this.state.game.players[this.state.game.currentPlayerTurnIndex].name === player.name ? "(Their Turn)" : ""}</h3>}
                                     centerMessage={true}
                                     small={true}
                                 />
