@@ -116,7 +116,6 @@ export default class PlayerBoard extends React.Component {
 
     render() {
         return (
-            // NOTE/FIXME: Pretty sure it's looping over the cards the wrong way
             <div className={this.props.small ? "small" : ""}>
                 {
                     (this.props.displayMessage && this.props.customDisplayMessage === "") &&
