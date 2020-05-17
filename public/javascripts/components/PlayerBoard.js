@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import GamePhase from "../GamePhase";
+import PlayerTurnPhase from "../PlayerTurnPhase";
 import Card from "./Card";
 import ApiService from "../apiService";
-
-const GamePhase = require("../../../gobjects/GamePhase");
-const PlayerTurnPhase = require("../../../gobjects/PlayerTurnPhase");
 
 export default class PlayerBoard extends React.Component {
     constructor(props) {
