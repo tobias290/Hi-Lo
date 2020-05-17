@@ -93,29 +93,31 @@ export default class Game extends React.Component {
      * @returns {string|null}
      */
     getGameMessage() {
+        let message;
+
         if (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && this.isClientPlayersTurn()) {
-            return "Pick two starting cards"
+            message = "Pick two starting cards";
         } else if (this.state.game.currentPhase === GamePhase.PLAYERS_PICKING_STARTING_CARDS && !this.isClientPlayersTurn()) {
-            return "Other players are picking their two starting cards"
+            message = "Other players are picking their two starting cards";
         } else if(this.state.game.currentPhase === GamePhase.PLAYERS_JOINING) {
-            return <span>GAME CODE: <strong>{this.props.gameCode}</strong></span>
-        } else if (this.state.game.currentPhase === GamePhase.PLAYER_TURN && this.isClientPlayersTurn()) {
+            message = <span>GAME CODE: <strong>{this.props.gameCode}</strong></span>
+        } else if ((this.state.game.currentPhase === GamePhase.PLAYER_TURN || this.state.game.currentPhase === GamePhase.FINAL_ROUND) && this.isClientPlayersTurn()) {
             if (this.getClientPlayer().turnPhase === PlayerTurnPhase.PICKING_CARD) {
-                return "Pick a card from either the deck or discard";
+                message = "Pick a card from either the deck or discard";
             } else if (this.getClientPlayer().turnPhase === PlayerTurnPhase.PLACING_CARD) {
-                return "Place the card on your board or on the discard";
+                message = "Place the card on your board or on the discard";
             } else if (this.getClientPlayer().turnPhase === PlayerTurnPhase.REVEAL_CARD) {
-                return "Flip a card face up";
+                message = "Flip a card face up";
             } else {
-                return "It is your turn";
+                message = "It is your turn";
             }
-        } else if (this.state.game.currentPhase === GamePhase.PLAYER_TURN && !this.isClientPlayersTurn()) {
-            return `It is ${this.state.game.players[this.state.game.currentPlayerTurnIndex].name}'s turn`;
-        } else if (this.state.game.currentPhase === GamePhase.FINAL_ROUND) {
-            return "Final round"
+        } else if ((this.state.game.currentPhase === GamePhase.PLAYER_TURN || this.state.game.currentPhase === GamePhase.FINAL_ROUND)&& !this.isClientPlayersTurn()) {
+            message = `It is ${this.state.game.players[this.state.game.currentPlayerTurnIndex].name}'s turn`;
         } else if (this.state.game.currentPhase === GamePhase.ROUND_END) {
-            return "Round is over";
+            message = "Round is over";
         }
+
+        return this.state.game.currentPhase === GamePhase.FINAL_ROUND ? `Final Round, ${message}` : message;
     }
 
     /**

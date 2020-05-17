@@ -348,9 +348,10 @@ class Game {
             if (player.board.flattenCards().every(card => card.faceUp)) {
                 if (this.currentPhase === GamePhase.PLAYER_TURN) {
                     this.currentPhase = GamePhase.FINAL_ROUND;
-                    this.endingPlayerIndex = this.currentPlayerTurnIndex;
+                    this.endingPlayerIndex = this.currentPlayerTurnIndex - 1 >= this.players.length - 1 ? 0 : this.currentPlayerTurnIndex - 1;
+
                     return false;
-                } else if (this.currentPhase === GamePhase.FINAL_ROUND && this.endingPlayerIndex === this.currentPlayerTurnIndex - 1) {
+                } else if (this.currentPhase === GamePhase.FINAL_ROUND && this.endingPlayerIndex === this.currentPlayerTurnIndex) {
                     this.currentPhase = GamePhase.ROUND_END;
                     this.currentPlayerTurnIndex = this.players.indexOf(player);
 
