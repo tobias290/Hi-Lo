@@ -238,7 +238,7 @@ body {
     justify-content: space-around;
     height: calc(100% - 76px);
     text-align: center;
-    width: 100%; }
+    width: 60%; }
   .play-area .play-area__players-score {
     align-items: center;
     display: flex;
@@ -251,7 +251,7 @@ body {
     height: calc(100% - 76px);
     justify-content: flex-start;
     overflow: auto;
-    width: 100%; }
+    width: 30%; }
 
 .round-end-area {
   align-items: center;

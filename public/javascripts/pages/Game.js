@@ -206,7 +206,7 @@ export default class Game extends React.Component {
                                 <PlayerBoard
                                     game={this.state.game}
                                     board={player.board}
-                                    displayScore={false}
+                                    displayScore={true}
                                     small={true}
                                 />
                             )}
