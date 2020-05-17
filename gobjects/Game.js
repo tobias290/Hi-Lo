@@ -242,7 +242,7 @@ class Game {
         if (this.players.every(player => player.board.noOfFaceUpCards() === 2)) {
             this.currentPhase = GamePhase.PLAYER_TURN;
 
-            if (this.currentRoundNumber > 1) {
+            if (this.currentRoundNumber < 1) {
                 // Calculates which player has the highest visible score, that player starts the first round
                 this.currentPlayerTurnIndex = this.players.indexOf(this.players.sort(
                     (a, b) => b.board.visibleScore() - a.board.visibleScore())[0]
