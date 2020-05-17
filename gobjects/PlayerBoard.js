@@ -72,6 +72,24 @@ class PlayerBoard {
     /**
      * @public
      *
+     * Gets the overall score from the player's cards.
+     *
+     * @returns {number} - Returns the overall score including face down cards.
+     */
+    overallScore() {
+        let score = 0;
+
+        for (let card of this.flattenCards()) {
+            card.flip(true);
+            score += card.value;
+        }
+
+        return score;
+    }
+
+    /**
+     * @public
+     *
      * Returns the number of face-up cards in the player's board.
      *
      * @returns {number} - Returns the number of face-up cards.

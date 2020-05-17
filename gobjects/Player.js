@@ -148,7 +148,7 @@ class Player {
      * Adds the players score from this round to their overall score.
      */
     addVisibleScoreToOverallScore() {
-        this.overallScore += this.board.visibleScore();
+        this.overallScore += this.board.overallScore();
     }
 
     /**
