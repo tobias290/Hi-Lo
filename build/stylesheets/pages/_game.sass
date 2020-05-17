@@ -1,0 +1,84 @@
+.game-top-bar
+    align-items: flex-start
+    display: flex
+    justify-content: space-between
+    padding: .5rem
+
+    .game-top-bar__title
+        margin: 0
+        width: fit-content
+
+    .game-top-bar__message
+        align-self: center
+        font-size: 2rem
+
+    .game-top-bar__details
+        align-items: center
+        display: flex
+        flex-direction: column
+        justify-content: space-around
+        height: 100%
+        width: 175px
+
+        .game-top-bar__detail
+            display: flex
+            justify-content: space-between
+            width: 100%
+
+.play-area
+    align-items: center
+    display: flex
+    height: calc(100% - 76px)
+    justify-content: space-around
+
+    @include mobile-query($breakpoint)
+        .play-area__right
+            width: 50% !important
+
+        .play-area__other-players-board
+            width: 50% !important
+
+    .play-area__right
+        align-items: center
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        height: calc(100% - 10px)
+        text-align: center
+        width: 60%
+
+    .play-area__players-score
+        align-items: center
+        display: flex
+        flex-direction: column
+        justify-content: center
+
+    .play-area__other-players-board
+        align-items: center
+        display: flex
+        flex-direction: column
+        height: 100%
+        justify-content: flex-start
+        overflow: auto
+        width: 30%
+
+
+.round-end-area
+    align-items: center
+    display: flex
+    flex-direction: column
+    height: calc(100% - 76px)
+    justify-content: space-around
+
+    .round-end__message
+        font-size: 3rem
+
+.scores-table
+    border-collapse: collapse
+    font-size: 1.5rem
+    text-align: center
+    width: 500px
+
+    th, td
+        border: 2px solid white
+        height: 40px
