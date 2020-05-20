@@ -263,6 +263,20 @@ body {
     justify-content: flex-start;
     overflow: auto;
     width: 30%; }
+    .play-area .play-area__other-players-board .play-area__other-players-info {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0.5rem 0;
+      width: 100%; }
+      .play-area .play-area__other-players-board .play-area__other-players-info h3 {
+        margin: 2rem; }
+      .play-area .play-area__other-players-board .play-area__other-players-info div {
+        font-size: 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        width: 100%; }
 
 .round-end-area {
   align-items: center;
